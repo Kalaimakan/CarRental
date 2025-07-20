@@ -1,0 +1,275 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Car Rentals</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-red: #ff0000;
+            --dark-red: #cc0000;
+            --dark-bg: #121212;
+            --light-text: #f8f9fa;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+        }
+
+        .content-container {
+            padding: 20px;
+            margin-top: 60px;
+        }
+
+        .card {
+            background-color: var(--dark-bg);
+            border: 1px solid var(--primary-red);
+            border-radius: 10px;
+            color: var(--light-text);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 0 5px 5px rgba(255, 0, 0, 0.3);
+        }
+
+        
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: red;
+            box-shadow: 0 0 20px 10px rgba(255, 0, 0, 0.7);
+        }
+
+        .card-img-top {
+            height: 180px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover .card-img-top {
+            transform: scale(1.05);
+        }
+
+        .card-body {
+            position: relative;
+            z-index: 1;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient( to bottom, rgba(255, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.8) 70% );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-red);
+            border: none;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+
+            .btn-primary:hover {
+                background-color: transparent;
+                transform: translateY(-2px);
+                box-shadow: 0 0px 7px 3px red;
+            }
+
+        .card-title {
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .card-text {
+            color: #adb5bd;
+            margin-bottom: 1.25rem;
+        }
+
+        .price-tag {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(255, 0, 0, 0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            z-index: 2;
+        }
+    </style>
+</head>
+<body>
+    <div class="content-container text-white">
+        <div class="container my-1">
+            <h2 class="text-center mb-4">Premium Car Collection</h2>
+            <p class="text-center mb-5">Experience luxury and performance with our exclusive fleet</p>
+            <div class="row g-4">
+
+                <!-- Car 1 -->
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <div class="card h-100 shadow rounded">
+                        <span class="price-tag">$140/day</span>
+                        <img src="~/Car Images/BMW M4.jpg" class="card-img-top rounded-top" alt="BMW M4">
+                        <div class="card-body">
+                            <h5 class="card-title">BMW M4 Competition</h5>
+                            <div class="d-flex justify-content-between mb-3">
+                                <small><i class="fas fa-tachometer-alt me-2"></i>503 HP</small>
+                                <small><i class="fas fa-car me-2"></i>Coupe</small>
+                            </div>
+                            <a href="#" class="btn btn-primary w-100">
+                                <i class="fas fa-calendar-alt me-2"></i>Rent Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Car 2 -->
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <div class="card h-100 shadow rounded">
+                        <span class="price-tag">$120/day</span>
+                        <img src="~/Car Images/Toyota GR Supra.jpg" class="card-img-top rounded-top" alt="Toyota Supra">
+                        <div class="card-body">
+                            <h5 class="card-title">Toyota GR Supra</h5>
+                            <div class="d-flex justify-content-between mb-3">
+                                <small><i class="fas fa-tachometer-alt me-2"></i>382 HP</small>
+                                <small><i class="fas fa-car me-2"></i>Sports</small>
+                            </div>
+                            <a href="#" class="btn btn-primary w-100">
+                                <i class="fas fa-calendar-alt me-2"></i>Rent Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Car 3 -->
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <div class="card h-100 shadow rounded">
+                        <span class="price-tag">$200/day</span>
+                        <img src="~/Car Images/Audi R8.jpg" class="card-img-top rounded-top" alt="Audi R8">
+                        <div class="card-body">
+                            <h5 class="card-title">Audi R8 V10</h5>
+                            <div class="d-flex justify-content-between mb-3">
+                                <small><i class="fas fa-tachometer-alt me-2"></i>562 HP</small>
+                                <small><i class="fas fa-car me-2"></i>Supercar</small>
+                            </div>
+                            <a href="#" class="btn btn-primary w-100">
+                                <i class="fas fa-calendar-alt me-2"></i>Rent Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Car 4 -->
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <div class="card h-100 shadow rounded">
+                        <span class="price-tag">$110/day</span>
+                        <img src="~/Car Images/Mercedes-AMG GT.jpg" class="card-img-top rounded-top" alt="Mercedes-AMG GT">
+                        <div class="card-body">
+                            <h5 class="card-title">Mercedes-AMG GT</h5>
+                            <div class="d-flex justify-content-between mb-3">
+                                <small><i class="fas fa-tachometer-alt me-2"></i>469 HP</small>
+                                <small><i class="fas fa-car me-2"></i>Grand Tourer</small>
+                            </div>
+                            <a href="#" class="btn btn-primary w-100">
+                                <i class="fas fa-calendar-alt me-2"></i>Rent Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Car 5 -->
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <div class="card h-100 shadow rounded">
+                        <span class="price-tag">$110/day</span>
+                        <img src="~/Car Images/Dodge Challenger.jpg" class="card-img-top rounded-top" alt="Mercedes-AMG GT">
+                        <div class="card-body">
+                            <h5 class="card-title">Dodge Challenger</h5>
+                            <div class="d-flex justify-content-between mb-3">
+                                <small><i class="fas fa-tachometer-alt me-2"></i>469 HP</small>
+                                <small><i class="fas fa-car me-2"></i>Grand Tourer</small>
+                            </div>
+                            <a href="#" class="btn btn-primary w-100">
+                                <i class="fas fa-calendar-alt me-2"></i>Rent Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Car 6 -->
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <div class="card h-100 shadow rounded">
+                        <span class="price-tag">$110/day</span>
+                        <img src="~/Car Images/Ford Mustang Shelby GT500.jpg" class="card-img-top rounded-top" alt="Mercedes-AMG GT">
+                        <div class="card-body">
+                            <h5 class="card-title">Ford Mustang Shelby GT500</h5>
+                            <div class="d-flex justify-content-between mb-3">
+                                <small><i class="fas fa-tachometer-alt me-2"></i>469 HP</small>
+                                <small><i class="fas fa-car me-2"></i>Grand Tourer</small>
+                            </div>
+                            <a href="#" class="btn btn-primary w-100">
+                                <i class="fas fa-calendar-alt me-2"></i>Rent Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Car 7 -->
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <div class="card h-100 shadow rounded">
+                        <span class="price-tag">$110/day</span>
+                        <img src="~/Car Images/McLaren 720S..jpg" class="card-img-top rounded-top" alt="Mercedes-AMG GT">
+                        <div class="card-body">
+                            <h5 class="card-title">McLaren 720S</h5>
+                            <div class="d-flex justify-content-between mb-3">
+                                <small><i class="fas fa-tachometer-alt me-2"></i>469 HP</small>
+                                <small><i class="fas fa-car me-2"></i>Grand Tourer</small>
+                            </div>
+                            <a href="#" class="btn btn-primary w-100">
+                                <i class="fas fa-calendar-alt me-2"></i>Rent Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Car 8 -->
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <div class="card h-100 shadow rounded">
+                        <span class="price-tag">$110/day</span>
+                        <img src="~/Car Images/Supra Mk5.jpg" class="card-img-top rounded-top" alt="Mercedes-AMG GT">
+                        <div class="card-body">
+                            <h5 class="card-title">Supra Mk5</h5>
+                            <div class="d-flex justify-content-between mb-3">
+                                <small><i class="fas fa-tachometer-alt me-2"></i>469 HP</small>
+                                <small><i class="fas fa-car me-2"></i>Grand Tourer</small>
+                            </div>
+                            <a href="#" class="btn btn-primary w-100">
+                                <i class="fas fa-calendar-alt me-2"></i>Rent Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+

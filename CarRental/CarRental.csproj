@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\Car Imgages\**" />
+    <Content Remove="wwwroot\Car Imgages\**" />
+    <EmbeddedResource Remove="wwwroot\Car Imgages\**" />
+    <None Remove="wwwroot\Car Imgages\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.7">
       <PrivateAssets>all</PrivateAssets>

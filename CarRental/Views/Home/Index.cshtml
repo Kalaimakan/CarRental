@@ -1,8 +1,132 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <!-- materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .btn.btn-transparent {
+            background-color: transparent;
+            color: white;
+            border: 1px solid white;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+            .btn.btn-transparent.btn-lg {
+                font-size: 1.25rem;
+                padding: 0.75rem 1.5rem;
+                padding-bottom: 44px;
+            }
+
+            .btn.btn-transparent:hover {
+                background-color: rgba(255, 255, 255, 0.1);
+                border-color: red;
+                color: white !important;
+                background-color: black !important;
+                border-color: red !important;
+                box-shadow: 0 0 2px 0.1rem red;
+                transition: 0.6s;
+                transform: translateY(-2px);
+            }
+
+            .btn.btn-transparent:active,
+            .btn.btn-transparent:active::after {
+                color: white !important;
+                background-color: black !important;
+                border-color: blue !important;
+                box-shadow: 0 0 2px 0.1rem blue;
+                transition: 0.3s;
+                transform: translateY(-2px);
+            }
+
+        /* .gallery {
+            position: absolute;
+            content: "";
+            left: 100px;
+            bottom: 0;
+            width: 55%;
+            height: 30%;
+            z-index: 100;
+            background: transparent;
+            box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.5), 0px -10px 40px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(20px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        } */
+
+    </style>
+</head>
+<body>
+    <!-- Video Background -->
+    <div class="position-fixed top-0 start-0 vw-100 vh-100 overflow-hidden" style="z-index: -1;">
+        <video autoplay loop muted playsinline class="w-100 h-100 object-fit-cover">
+            <source src="~/Car Videos/Car Headlight.mp4" type="video/mp4">
+            Your browser does not support HTML5 video.
+        </video>
+    </div>
+
+    <!-- Content -->
+    <div class="position-relative vh-100 d-flex flex-column justify-content-center align-items-center text-center text-white">
+        <div class="mt-5 pt-4"></div> <!-- Spacer for navbar -->
+        <h1 class="display-3 fw-bold mb-3">Welcome to our <span class="text-danger fw-bolder">Car Rental</span> </h1>
+        <p class="lead mb-4">Book your dream car now</p>
+        <a class="btn btn-transparent fs-4 btn-lg" asp-controller="Home" asp-action="Gallery">Browse Cars</a>
+
+    </div>
+    @* <div class="gallery">
+        <div class="carousel">
+            <a class="carousel-item" href="#">
+                <img src="~/Car Imgages/car1.jpg" alt="Alternate Text" />
+            </a>
+            <a class="carousel-item" href="#">
+                <img src="~/Car Imgages/car1.jpg" alt="Alternate Text" />
+            </a>
+            <a class="carousel-item" href="#">
+                <img src="~/Car Imgages/car1.jpg" alt="Alternate Text" />
+            </a>
+            <a class="carousel-item" href="#">
+                <img src="~/Car Imgages/car1.jpg" alt="Alternate Text" />
+            </a>
+            <a class="carousel-item" href="#">
+                <img src="~/Car Imgages/car1.jpg" alt="Alternate Text" />
+            </a>
+        </div>
+    </div> *@
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <!-- materialize JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript">
+              $(document).ready(function(){
+          $('.carousel').carousel();
+        });
+    </script>
+
+
+    @* <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.carousel');
+            var instances = M.Carousel.init(elems, {
+                fullWidth: true,
+                indicators: true,
+                duration: 200
+            });
+
+            // Auto-scroll every 3 seconds
+            setInterval(function() {
+                instances[0].next();
+            }, 3000);
+        });
+    </script> *@
+</body>
+</html>
