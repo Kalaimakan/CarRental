@@ -1,3 +1,27 @@
+
+input.form-control:focus {
+    border-color: #6c63ff;
+    box-shadow: 0 0 0 0.15rem rgba(108, 99, 255, 0.25);
+}
+
+
+form label.form-label {
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #ccc;
+}
+
+
+form .form-control::placeholder {
+    color: #999;
+    font-style: italic;
+}
+
+
+
+
+
 html {
   font-size: 14px;
 }

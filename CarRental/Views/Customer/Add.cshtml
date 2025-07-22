@@ -1,0 +1,93 @@
+﻿@{
+    ViewData["Title"] = "Add Customers";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>Use this page to detail your site's privacy policy.</p>
+
+@model CarRental.Models.Customer
+
+<h2 class="display-3"> Add Customer </h2>
+
+<style>
+    input.form-control:focus {
+        border-color: #6c63ff;
+        box-shadow: 0 0 0 0.15rem rgba(108, 99, 255, 0.25);
+    }
+
+    form label.form-label {
+        font-size: 0.95rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #ccc;
+    }
+
+    form .form-control::placeholder {
+        color: #999;
+        font-style: italic;
+    }
+</style>
+
+
+
+<form method="post" class="p-4 rounded shadow" style="background-color: #1e1e2f; color: #ffffff; max-width: 600px; margin: auto;">
+    <h4 class="text-center text-uppercase mb-4">Add Customer</h4>
+
+    <div class="mb-3">
+        <label class="form-label">Name:</label>
+        <div class="input-group">
+            <span class="input-group-text bg-dark border-secondary text-light">
+                <i class="bi bi-person-fill"></i>
+            </span>
+            <input type="text" class="form-control bg-dark text-white border-secondary" placeholder="Enter Name" asp-for="Name">
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Email:</label>
+        <div class="input-group">
+            <span class="input-group-text bg-dark border-secondary text-light">
+                <i class="bi bi-envelope-fill"></i>
+            </span>
+            <input type="email" class="form-control bg-dark text-white border-secondary" placeholder="Enter Email" asp-for="Email">
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Phone Number:</label>
+        <div class="input-group">
+            <span class="input-group-text bg-dark border-secondary text-light">
+                <i class="bi bi-telephone-fill"></i>
+            </span>
+            <input type="text" class="form-control bg-dark text-white border-secondary" placeholder="Enter Phone Number" asp-for="PhoneNumber">
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Licence No:</label>
+        <div class="input-group">
+            <span class="input-group-text bg-dark border-secondary text-light">
+                <i class="bi bi-card-text"></i>
+            </span>
+            <input type="text" class="form-control bg-dark text-white border-secondary" placeholder="Enter Licence No" asp-for="LicenceNumber">
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Address:</label>
+        <div class="input-group">
+            <span class="input-group-text bg-dark border-secondary text-light">
+                <i class="bi bi-house-fill"></i>
+            </span>
+            <input type="text" class="form-control bg-dark text-white border-secondary" placeholder="Enter Address" asp-for="Address">
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <button type="submit" class="btn btn-outline-light w-100 fw-bold">
+            💾 Save Customer
+        </button>
+    </div>
+</form>
+
+
