@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Update Customers";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>Use this page to detail your site's privacy policy.</p>
+
+@model CarRental.Models.Customer
+
+<h2 class="display-3"> Update Customer </h2>
+
+
+
+<form method="post" class="p-4 rounded" style="background-color: #1e1e2f; color: #ffffff;">
+  
+    <input type="hidden" asp-for="Id" />
+
+    <div class="mb-3">
+        <label class="form-label">Name:</label>
+        <input type="text" placeholder="Enter Name" class="form-control bg-dark text-white border-secondary" asp-for="Name" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Email:</label>
+        <input type="text" placeholder="Enter Email" class="form-control bg-dark text-white border-secondary" asp-for="Email" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Phone Number:</label>
+        <input type="text" placeholder="Enter Phone Number" class="form-control bg-dark text-white border-secondary" asp-for="PhoneNumber" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Licence No:</label>
+        <input type="text" placeholder="Enter Licence No" class="form-control bg-dark text-white border-secondary" asp-for="LicenceNumber" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Address:</label>
+        <input type="text" placeholder="Enter Address" class="form-control bg-dark text-white border-secondary" asp-for="Address" />
+    </div>
+
+    <div class="mt-4">
+        <button type="submit" class="btn btn-outline-light w-100">📝 Update Customer</button>
+    </div>
+</form>
