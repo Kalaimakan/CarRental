@@ -1,61 +1,61 @@
-﻿@model IEnumerable<CarRental.Models.Car>
+﻿@model List<CarRental.Models.Car>
 
-@{
-    ViewData["Title"] = "All Cars";
-}
+<div class="container mt-5 text-white">
+    <h2>Car List</h2>
 
-<h2 class="text-center mb-4 text-white">🚘 All Available Cars</h2>
-
-<div class="container">
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-        @foreach (var car in Model)
-        {
-            <div class="col">
-                <div class="card bg-dark text-white h-100 shadow">
-                    <div id="carousel-@car.Id" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner">
-                            @if (car.Images != null && car.Images.Count > 0)
+    @if (Model != null && Model.Any())
+    {
+        <table class="table table-dark table-striped">
+            <thead>
+                <tr>
+                    <th>Brand</th>
+                    <th>Model</th>
+                    <th>Colour</th>
+                    <th>Price/Day</th>
+                    <th>Status</th>
+                    <th>Description</th>
+                    <th>Images</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var car in Model)
+                {
+                    <tr>
+                        <td>@car.CarBrand</td>
+                        <td>@car.CarModel</td>
+                        <td>@car.CarColour</td>
+                        <td>Rs. @car.PricePerDay</td>
+                        <td>@(car.Status ? "Available" : "Not Available")</td>
+                        <td>@car.Description</td>
+                        <td>
+                            @if (car.Images != null && car.Images.Any())
                             {
-                                int index = 0;
-                                foreach (var image in car.Images)
+                                foreach (var image in car.Images.Take(2)) 
                                 {
-                                    <div class="carousel-item @(index == 0 ? "active" : "")">
-                                        <img src="~/images/@image.FileName" class="d-block w-100" style="height: 200px; object-fit: cover;" alt="Car Image" />
-                                    </div>
-                                    index++;
+                                    <img src="~/images/@image.FileName" width="60" height="40" class="me-1 mb-1 rounded shadow-sm" />
+                                }
+                                @if (car.Images.Count > 2)
+                                {
+                                    <span class="text-info">+@((car.Images.Count) - 2)</span>
                                 }
                             }
                             else
                             {
-                                <div class="carousel-item active">
-                                    <img src="https://via.placeholder.com/400x200?text=No+Image" class="d-block w-100" alt="No Image" />
-                                </div>
+                                <span class="text-muted">No Images</span>
                             }
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carousel-@car.Id" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carousel-@car.Id" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
-
-                    <div class="card-body">
-                        <h5 class="card-title">@car.CarBrand @car.CarModel</h5>
-                        <p class="card-text">@car.Description</p>
-                        <p><strong>Color:</strong> @car.CarColour</p>
-                        <p><strong>Price/Day:</strong> Rs. @car.PricePerDay</p>
-                        <p><strong>Status:</strong> @(car.Status ? "Available" : "Not Available")</p>
-                    </div>
-
-                    <div class="card-footer text-center bg-transparent border-top">
-                        <a asp-action="Update" asp-route-id="@car.Id" class="btn btn-warning btn-sm me-2">✏️ Edit</a>
-                        <a asp-action="Delete" asp-route-id="@car.Id" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this car?');">🗑️ Delete</a>
-                    </div>
-                </div>
-            </div>
-        }
-    </div>
+                        </td>
+                        <td>
+                            <a class="btn btn-warning btn-sm mb-1" asp-action="Update" asp-route-id="@car.Id">Edit</a>
+                            <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@car.Id" onclick="return confirm('Are you sure you want to delete this car?');">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No cars found.</p>
+    }
 </div>
