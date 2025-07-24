@@ -17,21 +17,18 @@ namespace CarRental.Controllers
             this.env = env;
         }
 
-       
         [HttpGet]
         public IActionResult Add()
         {
             return View();
         }
 
-        
         [HttpPost]
         public IActionResult Add(CarViewModel model)
         {
             if (!ModelState.IsValid)
                 return View(model);
 
-           
             var car = new Car
             {
                 Id = Guid.NewGuid(),
@@ -41,9 +38,9 @@ namespace CarRental.Controllers
                 PricePerDay = (int)model.PricePerDay,
                 Status = model.Status,
                 Description = model.Description,
+                Images = new List<CarImage>() 
             };
 
-           
             if (model.ImageFiles != null && model.ImageFiles.Count > 0)
             {
                 foreach (var file in model.ImageFiles)
@@ -68,32 +65,32 @@ namespace CarRental.Controllers
                 }
             }
 
-         
             dbContext.Cars.Add(car);
             dbContext.SaveChanges();
 
             return RedirectToAction("ViewCar");
         }
 
-        
         [HttpGet]
         public IActionResult ViewCar()
         {
             var cars = dbContext.Cars
-                .Include(c => c.Images) 
+                .Include(c => c.Images)
                 .ToList();
 
             return View(cars);
         }
+
         [HttpGet]
         public IActionResult Update(Guid id)
         {
-            var car = dbContext.Cars.Find(id);
+            var car = dbContext.Cars
+                .Include(c => c.Images)
+                .FirstOrDefault(c => c.Id == id);
 
             if (car == null)
                 return NotFound();
 
-            
             var model = new CarViewModel
             {
                 Id = car.Id,
@@ -118,7 +115,6 @@ namespace CarRental.Controllers
             if (existingCar == null)
                 return NotFound();
 
-       
             existingCar.CarBrand = model.CarBrand;
             existingCar.CarModel = model.CarModel;
             existingCar.CarColour = model.CarColour;
@@ -126,7 +122,9 @@ namespace CarRental.Controllers
             existingCar.Status = model.Status;
             existingCar.Description = model.Description;
 
-            
+            if (existingCar.Images == null)
+                existingCar.Images = new List<CarImage>();
+
             if (model.ImageFiles != null && model.ImageFiles.Count > 0)
             {
                 foreach (var file in model.ImageFiles)
@@ -165,7 +163,6 @@ namespace CarRental.Controllers
             if (car == null)
                 return NotFound();
 
-         
             foreach (var image in car.Images)
             {
                 var filePath = Path.Combine(env.WebRootPath, "images", image.FileName);

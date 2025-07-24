@@ -1,11 +1,14 @@
 ﻿@model CarRental.ViewModels.CarViewModel
+
 @{
     ViewData["Title"] = "Add New Car";
 }
 
 <h2 class="text-center mb-4">🚗 Add Car</h2>
 
-<form method="post" enctype="multipart/form-data" class="p-4 rounded shadow" style="background-color: #1e1e2f; color: #fff; max-width: 600px; margin: auto;">
+<form asp-action="Add" method="post" enctype="multipart/form-data" class="p-4 rounded shadow"
+      style="background-color: #1e1e2f; color: #fff; max-width: 600px; margin: auto;">
+
     <div class="mb-3">
         <label asp-for="CarBrand" class="form-label">Brand</label>
         <input asp-for="CarBrand" class="form-control bg-dark text-white" />
@@ -21,6 +24,7 @@
     <div class="mb-3">
         <label asp-for="CarColour" class="form-label">Colour</label>
         <input asp-for="CarColour" class="form-control bg-dark text-white" />
+        <span asp-validation-for="CarColour" class="text-danger"></span>
     </div>
 
     <div class="mb-3">
@@ -32,16 +36,19 @@
     <div class="form-check form-switch mb-3">
         <input asp-for="Status" class="form-check-input" />
         <label asp-for="Status" class="form-check-label">Available?</label>
+        <span asp-validation-for="Status" class="text-danger"></span>
     </div>
 
     <div class="mb-3">
         <label asp-for="Description" class="form-label">Description</label>
-        <textarea asp-for="Description" class="form-control bg-dark text-white"></textarea>
+        <textarea asp-for="Description" class="form-control bg-dark text-white" rows="3"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
     </div>
 
     <div class="mb-3">
-        <label asp-for="ImageFiles" class="form-label">Upload Car Images (multiple)</label>
-        <input asp-for="ImageFiles" type="file" class="form-control bg-dark text-white" multiple />
+        <label asp-for="ImageFiles" class="form-label">Upload Car Images (Multiple)</label>
+        <input asp-for="ImageFiles" class="form-control bg-dark text-white" type="file" multiple />
+        <span asp-validation-for="ImageFiles" class="text-danger"></span>
     </div>
 
     <button type="submit" class="btn btn-outline-light w-100 fw-bold">💾 Save Car</button>
