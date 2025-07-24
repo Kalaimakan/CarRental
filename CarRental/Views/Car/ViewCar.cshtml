@@ -1,0 +1,70 @@
+﻿@model IEnumerable<CarRental.Models.Car>
+@{
+    ViewData["Title"] = "All Cars";
+}
+
+<h2 class="text-center display-6 mb-4">🚘 Car List</h2>
+
+<form>
+<style>
+    .car-image {
+        width: 60px;
+        height: 40px;
+        object-fit: cover;
+        border-radius: 4px;
+        margin-right: 5px;
+    }
+</style>
+
+<div class="container">
+    <table class="table table-dark table-bordered table-hover shadow">
+        <thead>
+            <tr class="text-uppercase text-secondary">
+                <th>Brand</th>
+                <th>Model</th>
+                <th>Colour</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Description</th>
+                <th>Images</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var car in Model)
+            {
+                <tr>
+                    <td>@car.CarBrand</td>
+                    <td>@car.CarModel</td>
+                    <td>@car.CarColour</td>
+                    <td>@car.PricePerDay.ToString("C")</td>
+                    <td>
+                        @if (car.Status)
+                        {
+                            <span class="badge bg-success">Available</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-danger">Unavailable</span>
+                        }
+                    </td>
+                    <td>@car.Description</td>
+                    <td>
+                        @if (car.Images != null && car.Images.Any())
+                        {
+                            foreach (var img in car.Images.Take(3))
+                            {
+                                <img src="~/images/@img.FileName" class="car-image" />
+                            }
+                        }
+                    </td>
+                    <td>
+                        <a asp-action="Update" asp-route-id="@car.Id" class="btn btn-sm btn-warning">✏️ Edit</a>
+                        <a asp-action="Delete" asp-route-id="@car.Id" class="btn btn-sm btn-danger">🗑 Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+</form>
