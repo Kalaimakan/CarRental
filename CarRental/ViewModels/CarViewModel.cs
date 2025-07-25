@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CarRental.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace CarRental.ViewModels
 {
@@ -24,5 +25,6 @@ namespace CarRental.ViewModels
 
         [Display(Name = "Upload Car Images")]
         public List<IFormFile> ImageFiles { get; set; } = new();
+        public List<CarImage> ExistingImages { get; set; } = new();
     }
 }
