@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarRental.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250721094804_customer")]
-    partial class customer
+    [Migration("20250726083600_carss")]
+    partial class carss
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,11 +31,15 @@ namespace CarRental.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Brand")
+                    b.Property<string>("CarBrand")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Colour")
+                    b.Property<string>("CarColour")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CarModel")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -43,24 +47,35 @@ namespace CarRental.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Image")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("PricePerDay")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Model")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
 
-                    b.Property<decimal>("PricePerDay")
-                        .HasColumnType("decimal(18,2)");
+                    b.HasKey("Id");
 
-                    b.Property<string>("Status")
+                    b.ToTable("Cars");
+                });
+
+            modelBuilder.Entity("CarRental.Models.CarImage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CarId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("FileName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cars");
+                    b.HasIndex("CarId");
+
+                    b.ToTable("CarImages");
                 });
 
             modelBuilder.Entity("CarRental.Models.Customer", b =>
@@ -91,6 +106,20 @@ namespace CarRental.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("CarRental.Models.CarImage", b =>
+                {
+                    b.HasOne("CarRental.Models.Car", null)
+                        .WithMany("Images")
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CarRental.Models.Car", b =>
+                {
+                    b.Navigation("Images");
                 });
 #pragma warning restore 612, 618
         }

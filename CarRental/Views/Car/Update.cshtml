@@ -1,0 +1,87 @@
+﻿@model CarRental.ViewModels.CarViewModel
+
+@{
+    ViewData["Title"] = "Edit Car";
+}
+
+<h2 class="text-white text-center mt-4">Update Car</h2>
+
+<form asp-action="Update" method="post" enctype="multipart/form-data" class="p-4 rounded shadow" style="background-color: #1e1e2f; color: white; max-width: 700px; margin: auto;">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="mb-3">
+        <label asp-for="CarBrand" class="form-label">Car Brand</label>
+        <input asp-for="CarBrand" class="form-control bg-dark text-white" />
+        <span asp-validation-for="CarBrand" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="CarModel" class="form-label">Car Model</label>
+        <input asp-for="CarModel" class="form-control bg-dark text-white" />
+        <span asp-validation-for="CarModel" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="CarColour" class="form-label">Car Colour</label>
+        <input asp-for="CarColour" class="form-control bg-dark text-white" />
+        <span asp-validation-for="CarColour" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="PricePerDay" class="form-label">Price per Day</label>
+        <input asp-for="PricePerDay" class="form-control bg-dark text-white" />
+        <span asp-validation-for="PricePerDay" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Status" class="form-label">Status</label>
+        <select asp-for="Status" class="form-select bg-dark text-white">
+            <option value="true">Available</option>
+            <option value="false">Not Available</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label">Description</label>
+        <textarea asp-for="Description" class="form-control bg-dark text-white"></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Existing Images</label>
+        <div class="d-flex flex-wrap gap-2">
+            @if (Model.ExistingImages != null && Model.ExistingImages.Any())
+            {
+                foreach (var img in Model.ExistingImages)
+                {
+                    <div class="text-center">
+                        <img src="~/images/@img.FileName" width="100" class="rounded shadow-sm mb-1" />
+                    </div>
+                }
+            }
+            else
+            {
+                <span class="text-muted">No existing images</span>
+            }
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="ImageFiles" class="form-label">Upload New Images</label>
+        <input asp-for="ImageFiles" type="file" class="form-control bg-dark text-white" multiple />
+        <span asp-validation-for="ImageFiles" class="text-danger"></span>
+        <small class="text-muted">* New uploads will replace existing images</small>
+    </div>
+
+    
+    <div class="mt-4">
+        <button type="submit" class="btn btn-outline-light w-100 fw-bold">
+            💾 Save Changes
+        </button>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
