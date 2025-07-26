@@ -1,0 +1,70 @@
+﻿@model List<CarRental.Models.Car>
+
+<div class="container mt-5 text-white">
+    <h2>Car List</h2>
+
+    @if (Model != null && Model.Any())
+    {
+        <table class="table table-dark table-striped">
+            <thead>
+                <tr>
+                    <th>Brand</th>
+                    <th>Model</th>
+                    <th>Colour</th>
+                    <th>Price/Day</th>
+                    <th>Status</th>
+                    <th>Description</th>
+                    <th>Images</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var car in Model)
+                {
+                    <tr>
+                        <td>@car.CarBrand</td>
+                        <td>@car.CarModel</td>
+                        <td>@car.CarColour</td>
+                        <td>Rs. @car.PricePerDay</td>
+                        <td>@(car.Status ? "Available" : "Not Available")</td>
+                        <td>@car.Description</td>
+                        <td>
+                            @if (car.Images != null && car.Images.Any())
+                            {
+                                foreach (var image in car.Images.Take(2)) 
+                                {
+                                    <img src="~/images/@image.FileName" width="60" height="40" class="me-1 mb-1 rounded shadow-sm" />
+                                }
+                                @if (car.Images.Count > 2)
+                                {
+                                    <span class="text-info">+@((car.Images.Count) - 2)</span>
+                                }
+                            }
+                            else
+                            {
+                                <span class="text-muted">No Images</span>
+                            }
+                        </td>
+                        <td>
+                            <a class="btn btn-warning btn-sm mb-1" asp-action="Update" asp-route-id="@car.Id">Edit</a>
+                            <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@car.Id" onclick="return confirm('Are you sure you want to delete this car?');">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No cars found.</p>
+    }
+</div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Success"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+

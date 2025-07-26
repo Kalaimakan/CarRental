@@ -10,5 +10,7 @@ namespace CarRental.Database
         }
 
         public DbSet<Car> Cars { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<CarImage> CarImages{ get; internal set; }
     }
 }
