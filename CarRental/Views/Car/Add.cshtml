@@ -5,14 +5,6 @@
 
 <h2 class="text-center mb-4">🚗 Add Car</h2>
 
-@if (TempData["Success"] != null)
-{
-    <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
-        @TempData["Success"]
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    </div>
-}
-
 <form method="post" enctype="multipart/form-data" id="carForm"
       class="p-4 rounded shadow" style="background-color: #1e1e2f; color: white; max-width: 650px; margin: auto;">
 

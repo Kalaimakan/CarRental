@@ -40,7 +40,6 @@ namespace CarRental.Controllers
                 Description = model.Description,
                 Images = new List<CarImage>()
             };
-
            
             if (model.ImageFiles != null && model.ImageFiles.Count > 0)
             {
@@ -77,7 +76,6 @@ namespace CarRental.Controllers
         }
 
 
-
         [HttpGet]
         public IActionResult ViewCar()
         {
@@ -92,6 +90,7 @@ namespace CarRental.Controllers
         public IActionResult Update(Guid id)
         {
             var car = dbContext.Cars
+                .AsNoTracking() 
                 .Include(c => c.Images)
                 .FirstOrDefault(c => c.Id == id);
 
@@ -107,28 +106,51 @@ namespace CarRental.Controllers
                 PricePerDay = car.PricePerDay,
                 Status = car.Status,
                 Description = car.Description,
-                ExistingImages = car.Images.ToList() 
+                ExistingImages = car.Images.ToList()
             };
 
             return View(model);
         }
 
+
+
         [HttpPost]
         public IActionResult Update(CarViewModel model)
         {
-            var car = dbContext.Cars
-                .Include(c => c.Images)
-                .FirstOrDefault(c => c.Id == model.Id);
+            if (!ModelState.IsValid)
+                return View(model);
 
-            if (car == null)
-                return NotFound();
+            var existingImages = dbContext.CarImages.Where(i => i.CarId == model.Id).ToList();
 
-            car.CarBrand = model.CarBrand;
-            car.CarModel = model.CarModel;
-            car.CarColour = model.CarColour;
-            car.PricePerDay = model.PricePerDay;
-            car.Status = model.Status;
-            car.Description = model.Description;
+            foreach (var image in existingImages)
+            {
+                var imagePath = Path.Combine(env.WebRootPath, "images", image.FileName);
+                if (System.IO.File.Exists(imagePath))
+                {
+                    System.IO.File.Delete(imagePath); 
+                }
+
+                dbContext.CarImages.Remove(image); 
+            }
+
+            var car = new Car
+            {
+                Id = model.Id,
+                CarBrand = model.CarBrand,
+                CarModel = model.CarModel,
+                CarColour = model.CarColour,
+                PricePerDay = model.PricePerDay,
+                Status = model.Status,
+                Description = model.Description
+            };
+
+            dbContext.Attach(car);
+            dbContext.Entry(car).Property(c => c.CarBrand).IsModified = true;
+            dbContext.Entry(car).Property(c => c.CarModel).IsModified = true;
+            dbContext.Entry(car).Property(c => c.CarColour).IsModified = true;
+            dbContext.Entry(car).Property(c => c.PricePerDay).IsModified = true;
+            dbContext.Entry(car).Property(c => c.Status).IsModified = true;
+            dbContext.Entry(car).Property(c => c.Description).IsModified = true;
 
             if (model.ImageFiles != null && model.ImageFiles.Count > 0)
             {
@@ -144,7 +166,7 @@ namespace CarRental.Controllers
                             file.CopyTo(stream);
                         }
 
-                        car.Images.Add(new CarImage
+                        dbContext.CarImages.Add(new CarImage
                         {
                             Id = Guid.NewGuid(),
                             FileName = fileName,
@@ -154,10 +176,19 @@ namespace CarRental.Controllers
                 }
             }
 
-            dbContext.SaveChanges();
+            try
+            {
+                dbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("❌ Save failed: " + ex.Message);
+                return BadRequest("Error: " + ex.Message);
+            }
+
+            TempData["Success"] = "✅ Car updated successfully!";
             return RedirectToAction("ViewCar");
         }
-
 
 
         [HttpGet]

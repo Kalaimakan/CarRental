@@ -26,5 +26,6 @@ namespace CarRental.ViewModels
         [Display(Name = "Upload Car Images")]
         public List<IFormFile> ImageFiles { get; set; } = new();
         public List<CarImage> ExistingImages { get; set; } = new();
+
     }
 }
