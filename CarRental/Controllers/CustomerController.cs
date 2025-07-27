@@ -1,5 +1,6 @@
 ﻿using CarRental.Database;
 using CarRental.Models;
+using CarRental.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics.Contracts;
 
@@ -14,6 +15,9 @@ namespace CarRental.Controllers
             this.dbContext = dbContext;
         }
 
+       
+      
+
         public IActionResult Index()
         {
             return View();
@@ -26,8 +30,23 @@ namespace CarRental.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(Customer customer)
+        public IActionResult Add(CustomerViewModel vm)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(vm);
+            }
+
+           
+            var customer = new Customer
+            {
+                Name = vm.Name,
+                Email = vm.Email,
+                PhoneNumber = vm.PhoneNumber,
+                Address = vm.Address,
+                LicenceNumber = vm.LicenceNumber
+            };
+
             dbContext.Customers.Add(customer);
             dbContext.SaveChanges();
 
@@ -46,7 +65,24 @@ namespace CarRental.Controllers
         public IActionResult Update(Guid id)
         {
             var customer = dbContext.Customers.Find(id);
-            return View(customer);
+
+            if (customer == null)
+            {
+                return NotFound();
+            }
+
+
+            var customerViewModel = new CustomerViewModel
+            {
+                Id = customer.Id,
+                Name = customer.Name,
+                Email = customer.Email,
+                PhoneNumber = customer.PhoneNumber,
+                Address = customer.Address,
+                LicenceNumber = customer.LicenceNumber
+            };
+
+            return View(customerViewModel);
         }
 
         [HttpPost]
@@ -70,6 +106,8 @@ namespace CarRental.Controllers
             return RedirectToAction("ViewCustomer");
             
         }
+
+
 
         [HttpGet]
         public IActionResult Delete(Guid id)
