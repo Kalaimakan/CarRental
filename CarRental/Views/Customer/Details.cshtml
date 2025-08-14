@@ -1,0 +1,45 @@
+﻿@model CarRental.DTOs.CarDetailDTO
+
+@{
+    ViewData["Title"] = $"Details for {Model.Brand} {Model.Model}";
+}
+
+<h2>@Model.Brand @Model.Model</h2>
+<hr />
+
+<div class="row">
+    <div class="col-md-7">
+        <img src="@Model.ImageUrl" class="img-fluid rounded" alt="@Model.Brand @Model.Model" />
+    </div>
+    <div class="col-md-5">
+        <h3>Specifications</h3>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><strong>Brand:</strong> @Model.Brand</li>
+            <li class="list-group-item"><strong>Model:</strong> @Model.Model</li>
+            <li class="list-group-item"><strong>Colour:</strong> @Model.Colour</li>
+            <li class="list-group-item"><strong>Price:</strong> ₹@Model.PricePerDay / day</li>
+            <li class="list-group-item">
+                <strong>Status:</strong>
+                @if (Model.Status == "Available")
+                {
+                    <span class="badge bg-success">@Model.Status</span>
+                }
+                else
+                {
+                    <span class="badge bg-danger">@Model.Status</span>
+                }
+            </li>
+        </ul>
+        <h4 class="mt-4">Description</h4>
+        <p>@Model.Description</p>
+
+        @if (Model.Status == "Available")
+        {
+            <a asp-action="Book" asp-controller="Customer" asp-route-id="@Model.Id" class="btn btn-success btn-lg mt-3 w-100">Book This Car Now</a>
+        }
+        else
+        {
+            <button class="btn btn-secondary btn-lg mt-3 w-100" disabled>Currently Unavailable</button>
+        }
+    </div>
+</div>
