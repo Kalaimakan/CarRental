@@ -1,0 +1,62 @@
+﻿@{
+    ViewData["Title"] = "Book a Car";
+}
+
+<h2>Confirm Your Booking</h2>
+<hr />
+
+@if (ViewBag.CarName != null)
+{
+    <h4>You are booking: <strong>@ViewBag.CarName</strong></h4>
+}
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <form asp-action="ConfirmBooking" method="post">
+
+            <input type="hidden" name="CarId" value="@ViewBag.CarId" />
+
+            <input type="hidden" id="StartDate" name="StartDate" />
+            <input type="hidden" id="EndDate" name="EndDate" />
+
+            <div class="mb-3">
+                <label for="dateRangePicker" class="form-label">Pickup & Return Dates</label>
+                <input type="text" id="dateRangePicker" class="form-control" />
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Confirm Booking</button>
+        </form>
+    </div>
+</div>
+
+
+@* 
+*@
+@section Scripts {
+    <script>
+        $(function() {
+
+            $('#dateRangePicker').daterangepicker({
+                autoUpdateInput: false,
+                opens: 'left',
+                locale: {
+                    cancelLabel: 'Clear'
+                }
+            });
+
+            $('#dateRangePicker').on('apply.daterangepicker', function(ev, picker) {
+                $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+                $('#StartDate').val(picker.startDate.format('YYYY-MM-DD'));
+                $('#EndDate').val(picker.endDate.format('YYYY-MM-DD'));
+            });
+
+            $('#dateRangePicker').on('cancel.daterangepicker', function(ev, picker) {
+                $(this).val('');
+                $('#StartDate').val('');
+                $('#EndDate').val('');
+            });
+
+            $('#dateRangePicker').attr("placeholder", "Click to pick your dates");
+        });
+    </script>
+}

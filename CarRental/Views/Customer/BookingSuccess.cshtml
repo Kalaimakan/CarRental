@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Booking Successful";
+}
+
+<div class="text-center">
+    <h1 class="display-4 text-success">Booking Confirmed!</h1>
+    <p class="lead">Your car has been successfully booked.</p>
+    <p>Your Booking ID is: <strong>@ViewBag.BookingId</strong></p>
+    <hr />
+    <p>You will receive a confirmation email shortly. Thank you for choosing CarRental!</p>
+
+    <a asp-action="Index" asp-controller="Customer" class="btn btn-primary mt-3">Browse More Cars</a>
+    <a asp-action="MyBookings" asp-controller="Customer" class="btn btn-secondary mt-3">View My Bookings</a>
+</div>

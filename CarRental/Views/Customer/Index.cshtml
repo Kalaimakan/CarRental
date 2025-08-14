@@ -1,0 +1,36 @@
+﻿@model List<CarRental.DTOs.CarListItemDTO>
+
+@{
+    ViewData["Title"] = "Available Cars";
+}
+
+<h2>Our Fleet of Cars</h2>
+
+<div class="row">
+    @foreach (var car in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <img src="@car.ImageUrl" class="card-img-top" alt="@car.BrandAndModel">
+                <div class="card-body">
+                    <h5 class="card-title">@car.BrandAndModel</h5>
+                    <p class="card-text"><strong>Price:</strong> ₹@car.PricePerDay / day</p>
+                    <p class="card-text">
+                        <strong>Status:</strong>
+                        @if (car.Status == "Available")
+                        {
+                            <span class="badge bg-success">@car.Status</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-danger">@car.Status</span>
+                        }
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <a href="/Customer/Details/@car.Id" class="btn btn-primary w-100">View Details & Book</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

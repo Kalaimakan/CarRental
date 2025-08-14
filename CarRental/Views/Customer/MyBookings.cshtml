@@ -1,0 +1,55 @@
+﻿@model List<CarRental.DTOs.MyBookingListItemDTO>
+
+@{
+    ViewData["Title"] = "My Bookings";
+}
+
+<h2>@ViewData["Title"]</h2>
+<hr />
+
+@if (Model.Any())
+{
+    @foreach (var booking in Model)
+    {
+        <div class="card mb-3">
+            <div class="row g-0">
+                <div class="col-md-3">
+                    <img src="@booking.CarImageUrl" class="img-fluid rounded-start" alt="@booking.CarBrandAndModel" style="height: 100%; object-fit: cover;">
+                </div>
+                <div class="col-md-9">
+                    <div class="card-body">
+                        <h5 class="card-title">@booking.CarBrandAndModel</h5>
+                        <p class="card-text">
+                            <strong>Booking ID:</strong> @booking.BookingId <br />
+                            <strong>From:</strong> @booking.StartDate.ToShortDateString()
+                            <strong>To:</strong> @booking.EndDate.ToShortDateString()
+                        </p>
+                        <p class="card-text">
+                            <strong>Total Price:</strong> ₹@booking.TotalPrice.ToString("N0")
+                        </p>
+                        <p class="card-text">
+                            <small class="text-muted">
+                                Status:
+                                @if (booking.BookingStatus == "Confirmed")
+                                {
+                                    <span class="badge bg-success">@booking.BookingStatus</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary">@booking.BookingStatus</span>
+                                }
+                            </small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="text-center">
+        <p>You have no bookings yet.</p>
+        <a asp-action="Index" class="btn btn-primary">Browse Cars to Book</a>
+    </div>
+}
