@@ -1,0 +1,373 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Customer Dashboard</title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+    <style>
+        :root {
+            --sidebar-width: 70px; /* collapsed */
+            --sidebar-expanded-width: 240px; /* expanded */
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --blur: 8px;
+            --transition: all 0.4s ease;
+            --primary-red: #ff0000;
+            --text-light: #fff;
+        }
+
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+
+        /* Background Slideshow */
+        #bg-slideshow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+            #bg-slideshow .bgimage {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                opacity: 0;
+                transition: opacity 1.5s ease-in-out;
+            }
+
+                #bg-slideshow .bgimage.active {
+                    opacity: 1;
+                }
+
+        /* Sidebar Floating Glass */
+        .sidebar {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            height: calc(100% - 40px);
+            width: var(--sidebar-width); /* collapsed default */
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--blur));
+            border-radius: 15px;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            padding: 15px 10px;
+            z-index: 1000;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+        }
+
+            .sidebar.expanded {
+                width: var(--sidebar-expanded-width);
+            }
+
+            /* Sidebar Header */
+            .sidebar h5 {
+                opacity: 0;
+                white-space: nowrap;
+                transition: var(--transition);
+            }
+
+            .sidebar.expanded h5 {
+                opacity: 1;
+            }
+
+            /* Sidebar Links */
+            .sidebar .nav-link {
+                color: var(--text-light);
+                padding: 12px;
+                margin: 6px 0;
+                border-radius: 10px;
+                display: flex;
+                align-items: center;
+                transition: var(--transition);
+                font-size: 1.1rem;
+                white-space: nowrap;
+            }
+
+                .sidebar .nav-link i {
+                    font-size: 1.5rem;
+                    margin-right: 10px;
+                }
+                /* hide labels collapsed */
+                .sidebar .nav-link span {
+                    display: none;
+                }
+
+            .sidebar.expanded .nav-link span {
+                display: inline;
+            }
+
+            .sidebar .nav-link:hover,
+            .sidebar .nav-link.active {
+                background-color: rgba(255, 0, 0, 0.2);
+                color: var(--primary-red);
+            }
+
+            /* Profile Section */
+            .sidebar .profile {
+                margin-top: auto;
+                padding-top: 15px;
+                border-top: 1px solid rgba(255, 255, 255, 0.2);
+                transition: var(--transition);
+                white-space: nowrap;
+                display: flex;
+                align-items: center;
+            }
+
+            /* Avatar always visible */
+            .sidebar .avatar {
+                width: 42px;
+                height: 42px;
+                border-radius: 50%;
+                background: rgba(255, 0, 0, 0.8);
+                backdrop-filter: blur(6px);
+                box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: bold;
+                color: var(--text-light);
+                flex-shrink: 0;
+                margin-right: 0;
+                transition: var(--transition);
+            }
+
+        /* Profile Info */
+        .profile-info {
+            display: none;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .sidebar.expanded .profile-info {
+            display: block;
+            margin-left: 10px;
+        }
+
+        /* Hide dropdown arrow and menu when collapsed */
+        .sidebar:not(.expanded) .dropdown-toggle::after,
+        .sidebar:not(.expanded) .dropdown-menu {
+            display: none !important;
+        }
+
+        /* Dropdown Arrow */
+        .profile .dropdown-toggle::after {
+            margin-left: 6px;
+            vertical-align: middle;
+            transition: transform 0.3s ease;
+            border-top-color: var(--text-light);
+        }
+
+        .profile .dropdown-toggle[aria-expanded="true"]::after {
+            transform: rotate(180deg);
+        }
+
+        /* Dropdown Menu */
+        .dropdown-menu-dark {
+            background-color: rgba(20, 20, 20, 0.95);
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .dropdown-item {
+            padding: 10px 15px;
+            transition: var(--transition);
+            color: var(--text-light);
+        }
+
+            .dropdown-item:hover {
+                background-color: rgba(255, 0, 0, 0.2);
+                color: var(--primary-red);
+            }
+
+        /* Main Content */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(6px);
+            transition: var(--transition);
+            min-height: 100vh;
+        }
+
+        .sidebar.expanded ~ .main-content {
+            margin-left: var(--sidebar-expanded-width);
+        }
+
+        /* Mobile Responsive */
+        @@media (max-width: 768px) {
+            .sidebar
+
+        {
+            top: 0;
+            left: -240px;
+            height: 100%;
+            border-radius: 0;
+        }
+
+        .sidebar.expanded {
+            left: 0;
+            width: var(--sidebar-expanded-width);
+        }
+
+        .main-content {
+            margin-left: 0 !important;
+        }
+
+        }
+    </style>
+
+</head>
+<body>
+    <div id="bg-slideshow">
+        <img src="~/CarImg/CarImg1.jpg" class="bgimage active" />
+        <img src="~/CarImg/CarImg2.jpg" class="bgimage" />
+        <img src="~/CarImg/CarImg3.jpg" class="bgimage" />
+        <img src="~/CarImg/CarImg4.jpg" class="bgimage" />
+    </div>
+
+    <div class="app-shell">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="sidebar">
+            <div class="d-flex align-items-center mb-4">
+                <i class="bi bi-list fs-3 toggle-btn" id="sidebarToggle"></i>
+                <h5 class="ms-2 mb-0">CarRental</h5>
+            </div>
+
+            <ul class="nav flex-column gap-1">
+                <li class="nav-item">
+                    <a asp-controller="CustomerDashboard" asp-action="Index" class="nav-link">
+                        <i class="bi bi-speedometer2"></i> <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-controller="CustomerDashboard" asp-action="ShowAllCars" class="nav-link">
+                        <i class="bi bi-car-front"></i> <span>Browse Cars</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-controller="CustomerDashboard" asp-action="MyBookings" class="nav-link">
+                        <i class="bi bi-journal-text"></i> <span>My Bookings</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-controller="Home" asp-action="Contact" class="nav-link">
+                        <i class="bi bi-chat-dots"></i> <span>Feedback</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="profile mt-auto dropup">
+                <div class="dropdown w-100">
+                    <button class="d-flex align-items-center gap-2 w-100 bg-transparent border-0 text-white dropdown-toggle"
+                            id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+
+                        @{
+                            var fullName = User.Identity?.Name ?? "Guest User"; var initials = string.Join("", fullName.Split(" ", StringSplitOptions.RemoveEmptyEntries).Select(n => n[0])).ToUpper();
+                        }
+                        <div class="avatar bg-danger rounded-circle d-flex align-items-center justify-content-center" style="width:40px;height:40px;"> @initials </div>
+
+                        <div class="profile-info text-start">
+                            <strong>@User.Identity?.Name</strong><br />
+                            <small class="text-muted">@User.FindFirst("Email")?.Value</small>
+                        </div>
+                    </button>
+
+                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow w-100"
+                        aria-labelledby="profileDropdown">
+                        <li>
+                            <a class="dropdown-item" asp-controller="Account" asp-action="Profile">
+                                <i class="bi bi-person-circle me-2"></i> Profile
+                            </a>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <a class="dropdown-item text-danger" href="/Account/Logout">
+                                <i class="bi bi-box-arrow-right me-2"></i> Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <button id="sidebarToggle" class="btn btn-outline-primary d-md-none">☰</button>
+                <h2 class="mb-0">@ViewData["Title"]</h2>
+            </div>
+            @RenderBody()
+        </main>
+    </div>
+
+    <script>
+        const sidebar = document.getElementById("sidebar");
+        const toggle = document.getElementById("sidebarToggle");
+        const navLinks = document.querySelectorAll(".sidebar .nav-link");
+
+        // Sidebar toggle only when pressing menu button
+        toggle.addEventListener("click", () => {
+            sidebar.classList.toggle("expanded");
+        });
+
+        // Active nav item handling
+        navLinks.forEach(link => {
+            link.addEventListener("click", () => {
+                navLinks.forEach(l => l.classList.remove("active"));
+                link.classList.add("active");
+
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.remove("expanded");
+                }
+            });
+        });
+
+        // Auto collapse on resize when screen < 768px
+        window.addEventListener("resize", () => {
+            if (window.innerWidth <= 768) {
+                sidebar.classList.remove("expanded");
+            }
+        });
+
+        // ✅ Slideshow
+        document.addEventListener("DOMContentLoaded", function () {
+            const images = document.querySelectorAll("#bg-slideshow .bgimage");
+            let current = 0;
+
+            function changeImage() {
+                images[current].classList.remove("active");
+                current = (current + 1) % images.length;
+                images[current].classList.add("active");
+            }
+
+            // Change every 4 seconds
+            setInterval(changeImage, 4000);
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

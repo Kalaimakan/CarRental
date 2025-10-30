@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewData["Title"] = "Contact Us";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+    input.input-validation-error,
+    textarea.input-validation-error {
+        border: 1px solid red;
+        background-color: rgba(255,0,0,0.05);
+    }
+
+    input.valid,
+    textarea.valid {
+        border: 1px solid #28a745;
+        background-color: rgba(0,255,0,0.05);
+
+</style>
+}
+@model CarRental.Models.Contact
+
+<div class="container my-5">
+    <div class="card shadow-lg rounded-4 p-4" style="background-color: rgba(255,255,255,0.05); backdrop-filter: blur(10px);">
+        <h2 class="text-white mb-4">Contact Us</h2>
+
+        @if (ViewBag.SuccessMessage != null)
+        {
+            <div class="alert alert-success">@ViewBag.SuccessMessage</div>
+        }
+
+        <form asp-action="Contact" method="post">
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label text-white"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label text-white"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Subject" class="form-label text-white"></label>
+                <input asp-for="Subject" class="form-control" />
+                <span asp-validation-for="Subject" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Message" class="form-label text-white"></label>
+                <textarea asp-for="Message" class="form-control" rows="5"></textarea>
+                <span asp-validation-for="Message" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Send Message</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

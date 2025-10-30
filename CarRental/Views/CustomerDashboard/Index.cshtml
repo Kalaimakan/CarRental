@@ -1,0 +1,20 @@
+﻿@{
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+    ViewData["Title"] = "Dashboard";
+}
+
+<!-- Welcome Message -->
+<div id="welcomeMsg" class="alert alert-dark border border-danger shadow-sm mb-4">
+    👋 Welcome, <strong>@User.Identity?.Name</strong>!
+</div>
+
+<script>
+    // Auto hide welcome message after 5 seconds
+    setTimeout(() => {
+        const msg = document.getElementById("welcomeMsg");
+        if (msg) {
+            msg.classList.add("fade");
+            setTimeout(() => msg.remove(), 500);
+        }
+    }, 5000);
+</script>

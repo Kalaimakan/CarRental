@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="View Models\**" />
+    <Content Remove="View Models\**" />
+    <EmbeddedResource Remove="View Models\**" />
+    <None Remove="View Models\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Views\CustomerDashboard\BrowseCars.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Views\Customer\Update.cshtml~RF19f7b54b.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Car\Add.cshtml" />
+    <None Include="Views\Car\Details.cshtml" />
+    <None Include="Views\Car\Update.cshtml" />
+    <None Include="Views\Car\ViewCar.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>

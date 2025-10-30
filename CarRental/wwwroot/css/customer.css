@@ -1,0 +1,152 @@
+﻿/* ==============================
+   Theme Variables
+   ============================== */
+
+/* Light mode (default) */
+:root {
+    --bg: #f8f9fa;
+    --panel: #ffffff;
+    --muted: #6c757d;
+    --accent: #0d6efd;
+    --text: #212529;
+    --sidebar-bg: #ffffff;
+    --sidebar-border: rgba(0,0,0,0.06);
+}
+
+/* Dark theme overrides */
+body.dark-theme {
+    --bg: linear-gradient(180deg,#071028 0%,#071226 60%);
+    --panel: rgba(255,255,255,0.04);
+    --muted: #9aa4b2;
+    --accent: #3b82f6;
+    --text: #e6eef8;
+    --sidebar-bg: rgba(255,255,255,0.03);
+    --sidebar-border: rgba(255,255,255,0.06);
+}
+
+/* Global */
+html, body {
+    height: 100%;
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+/* Shell */
+.app-shell {
+    min-height: 100vh;
+    display: flex;
+    gap: 0;
+    background: transparent;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 260px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem;
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--sidebar-border);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    overflow-y: auto;
+}
+
+    /* Avatar */
+    .sidebar .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg,#4f46e5,#06b6d4);
+        color: #fff;
+        font-weight: 700;
+    }
+
+    /* Nav links */
+    .sidebar .nav-link {
+        color: var(--text);
+        border-radius: 8px;
+        padding: 0.5rem 0.75rem;
+        display: flex;
+        align-items: center;
+        gap: .6rem;
+        transition: background .15s, color .15s;
+    }
+
+        .sidebar .nav-link:hover {
+            background: rgba(0,0,0,0.04);
+            color: var(--accent);
+        }
+
+        .sidebar .nav-link.active {
+            background: rgba(13,110,253,0.10);
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+/* Profile */
+.profile {
+    border-top: 1px solid var(--sidebar-border);
+    padding-top: 1rem;
+}
+
+/* Main content */
+.main-content {
+    margin-left: 260px;
+    padding: 2rem;
+    min-height: 100vh;
+    background: transparent;
+}
+
+/* Cards */
+.card {
+    border: none;
+    border-radius: 12px;
+    padding: 1rem;
+    background: var(--panel);
+    color: var(--text);
+    box-shadow: 0 6px 20px rgba(14, 23, 38, 0.04);
+}
+
+/* Responsive */
+@media (max-width: 991.98px) {
+    .sidebar {
+        width: 220px;
+    }
+
+    .main-content {
+        margin-left: 220px;
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .sidebar {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 1050;
+        width: 220px;
+    }
+
+        .sidebar.sidebar-open {
+            display: block;
+            background: var(--sidebar-bg);
+            box-shadow: 2px 0 8px rgba(0,0,0,0.2);
+        }
+
+    .main-content {
+        margin-left: 0;
+        padding: 1rem;
+    }
+}

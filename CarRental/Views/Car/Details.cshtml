@@ -1,0 +1,190 @@
+﻿@{
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+
+@model CarRental.DTOs.CarDto
+
+<div class="container my-5">
+    <div class="card car-detail-card shadow-lg rounded-4 p-3">
+        <div class="row g-3">
+            <!-- Left: Carousel -->
+            <div class="col-lg-6">
+                @if (Model.Images != null && Model.Images.Any())
+                {
+                    <div id="carCarousel" class="carousel slide rounded shadow" data-bs-ride="carousel" data-bs-interval="3000">
+                        <div class="carousel-inner rounded">
+                            @for (int i = 0; i < Model.Images.Count; i++)
+                            {
+                                <div class="carousel-item @(i == 0 ? "active" : "")">
+                                    <img src="~/images/@Model.Images[i].FileName" class="d-block w-100 card-img-top rounded" style="height:400px; object-fit: cover;" alt="Car Image @i">
+                                </div>
+                            }
+                        </div>
+
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon bg-dark rounded-circle p-2"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon bg-dark rounded-circle p-2"></span>
+                        </button>
+
+                        <div class="carousel-indicators mt-3">
+                            @for (int i = 0; i < Model.Images.Count; i++)
+                            {
+                                <button type="button" data-bs-target="#carCarousel" data-bs-slide-to="@i" class="@(i == 0 ? "active" : "")"></button>
+                            }
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <img src="~/images/default-car.png" class="d-block w-100 card-img-top rounded" style="height:400px; object-fit:cover;" alt="Default Car">
+                }
+            </div>
+
+            <!-- Right: Details -->
+            <div class="col-lg-6 d-flex flex-column justify-content-between">
+                <div>
+                    <h2 class="card-title text-warning">@Model.CarBrand @Model.CarModel</h2>
+                    <p class="card-text">@Model.Description</p>
+
+                    <div class="row mb-3 text-light">
+                        <div class="col-6">
+                            <p><strong>Seats:</strong> @Model.Seats</p>
+                            <p><strong>Fuel:</strong> @Model.FuelType</p>
+                            <p><strong>AC:</strong> @(Model.HasAC ? "Available" : "Not Available")</p>
+                        </div>
+                        <div class="col-6">
+                            <p><strong>Price per Day:</strong> <span class="text-warning fw-semibold">Rs. @Model.PricePerDay</span></p>
+                            <p><strong>Transmission:</strong> @Model.Transmission</p>
+                            <p>
+                                <strong>Status:</strong>
+                                @if (Model.Status)
+                                {
+                                    <span class="badge bg-success glow-badge">Available ✅</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger glow-badge">Not Available ❌</span>
+                                }
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4 button-container">
+                    <a asp-controller="CustomerDashboard" asp-action="ShowAllCars" class="btn btn-primary fw-bold rounded-pill px-4">← Back</a>
+                    @if (Model.Status)
+                    {
+                        <a asp-controller="Booking" asp-action="CreateBooking" asp-route-carId="@Model.Id"
+                           class="btn btn-primary fw-bold rounded-pill px-4">Book Now</a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    :root {
+        --primary-red: #ff0000;
+        --dark-red: #cc0000;
+        --dark-bg: #121212;
+        --light-text: #f8f9fa;
+    }
+
+    body {
+        background-color: var(--dark-bg);
+        color: var(--light-text);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+    }
+
+    /* Glass effect card */
+    .car-detail-card {
+        background: rgba(255, 255, 255, 0.05); /* glass */
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 0, 0, 0.3);
+        border-radius: 20px;
+        color: var(--light-text);
+        overflow: hidden;
+        transition: transform 0.3s, box-shadow 0.3s;
+        box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+        position: relative;
+        animation: fadeSlideIn 0.8s ease;
+    }
+
+        .car-detail-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
+        }
+
+    /* Carousel images */
+    .carousel-inner img,
+    .card-img-top {
+        border-radius: 15px;
+        transition: transform 0.5s ease, box-shadow 0.5s ease;
+    }
+
+    .car-detail-card:hover .carousel-inner img,
+    .car-detail-card:hover .card-img-top {
+        transform: scale(1.05);
+        box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+    }
+
+    /* Badge glow */
+    .glow-badge {
+        font-weight: 600;
+        padding: 6px 12px;
+        border-radius: 15px;
+        backdrop-filter: blur(6px);
+        box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
+    }
+
+    /* Title + text */
+    .card-title {
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+        text-shadow: 0 0 5px rgba(255, 0, 0, 0.6);
+    }
+
+    .card-text {
+        color: #adb5bd;
+        margin-bottom: 1.25rem;
+    }
+
+    /* Buttons */
+    .button-container .btn-primary {
+        background: rgba(255, 0, 0, 0.7);
+        border: 1px solid rgba(255, 0, 0, 0.5);
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(6px);
+        box-shadow: 0 0 8px rgba(255, 0, 0, 0.4);
+    }
+
+        .button-container .btn-primary:hover {
+            background: rgba(255, 0, 0, 0.9);
+            color: #fff;
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 1);
+        }
+
+    /* Animations */
+    @@keyframes fadeSlideIn {
+        from
+
+    {
+        opacity: 0;
+        transform: translateY(20px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+    }
+</style>

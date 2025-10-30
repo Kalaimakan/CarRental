@@ -1,0 +1,161 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+@model CarRental.DTOs.CustomerDto
+
+@{
+    ViewData["Title"] = "Update Customer";
+}
+
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-7 col-md-9">
+
+            <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+                <!-- Card Header -->
+                <div class="card-header text-center text-white py-4"
+                     style="background: linear-gradient(135deg, #ff7b54, #ff4b2b);">
+                    <h3 class="fw-bold text-uppercase mb-0">@ViewData["Title"]</h3>
+                    <small class="text-light">Update customer information below</small>
+                </div>
+
+                <!-- Card Body -->
+                <div class="card-body p-4 bg-dark text-white">
+
+                    <form asp-action="Update" method="post" novalidate>
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" asp-for="Id" />
+
+                        <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+                        <!-- Name -->
+                        <div class="mb-3">
+                            <label asp-for="Name" class="form-label fw-semibold"></label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-secondary border-0 text-white">
+                                    <i class="bi bi-person-fill"></i>
+                                </span>
+                                <input asp-for="Name" class="form-control bg-dark text-white border-secondary" placeholder="Enter full name" />
+                            </div>
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label fw-semibold"></label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-secondary border-0 text-white">
+                                    <i class="bi bi-envelope-fill"></i>
+                                </span>
+                                <input asp-for="Email" class="form-control bg-dark text-white border-secondary" placeholder="Enter email address" />
+                            </div>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                      @*   <!-- UserName -->
+                        <div class="mb-3">
+                            <label asp-for="UserName" class="form-label fw-semibold"></label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-secondary border-0 text-white">
+                                    <i class="bi bi-person-fill"></i>
+                                </span>
+                                <input asp-for="UserName" class="form-control bg-dark text-white border-secondary" placeholder="Enter username" />
+                            </div>
+                            <span asp-validation-for="UserName" class="text-danger"></span>
+                        </div>
+
+
+                        <!-- Password -->
+                        <div class="mb-3">
+                            <label asp-for="Password" class="form-label fw-semibold"></label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-secondary border-0 text-white">
+                                    <i class="bi bi-lock-fill"></i>
+                                </span>
+
+                                <input asp-for="Password" type="password" class="form-control bg-dark text-white border-secondary" placeholder="Enter password" id="passwordInput" />
+
+
+                                <button class="btn btn-outline-light border-secondary" type="button" id="togglePassword">
+                                    <i class="bi bi-eye" id="togglePasswordIcon"></i>
+                                </button>
+                            </div>
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+
+                        <script>
+                            const togglePassword = document.getElementById('togglePassword');
+                            const passwordInput = document.getElementById('passwordInput');
+                            const toggleIcon = document.getElementById('togglePasswordIcon');
+
+                            togglePassword.addEventListener('click', function () {
+                                const isPassword = passwordInput.type === 'password';
+                                passwordInput.type = isPassword ? 'text' : 'password';
+
+                                toggleIcon.classList.toggle('bi-eye');
+                                toggleIcon.classList.toggle('bi-eye-slash');
+                            });
+                        </script> *@
+
+
+                        <!-- Phone -->
+                        <div class="mb-3">
+                            <label asp-for="PhoneNumber" class="form-label fw-semibold"></label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-secondary border-0 text-white">
+                                    <i class="bi bi-telephone-fill"></i>
+                                </span>
+                                <input asp-for="PhoneNumber" class="form-control bg-dark text-white border-secondary" placeholder="Enter phone number" />
+                            </div>
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+
+                        <!-- Licence -->
+                        <div class="mb-3">
+                            <label asp-for="LicenceNumber" class="form-label fw-semibold"></label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-secondary border-0 text-white">
+                                    <i class="bi bi-card-text"></i>
+                                </span>
+                                <input asp-for="LicenceNumber" class="form-control bg-dark text-white border-secondary" placeholder="Enter licence number" />
+                            </div>
+                            <span asp-validation-for="LicenceNumber" class="text-danger"></span>
+                        </div>
+
+                        <!-- Address -->
+                        <div class="mb-3">
+                            <label asp-for="Address" class="form-label fw-semibold"></label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-secondary border-0 text-white">
+                                    <i class="bi bi-house-fill"></i>
+                                </span>
+                                <input asp-for="Address" class="form-control bg-dark text-white border-secondary" placeholder="Enter address" />
+                            </div>
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+
+                        
+
+                        <!-- Buttons -->
+                        <div class="d-flex justify-content-between mt-4">
+                            <a asp-action="ViewCustomer" class="btn btn-outline-light px-4">
+                                <i class="bi bi-arrow-left me-2"></i> Cancel
+                            </a>
+                            <button type="submit" class="btn btn-warning px-4 fw-bold" style="background: linear-gradient(135deg, #ff7b54, #ff4b2b); border: none;">
+                                <i class="bi bi-pencil-square me-2"></i> Update Customer
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

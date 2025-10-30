@@ -1,0 +1,318 @@
+﻿@model CarRental.ViewModels.UpdateProfileViewModel
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+    string initials = !string.IsNullOrEmpty(Model.Name)
+        ? string.Join("", Model.Name.Split(' ').Select(n => n[0])).ToUpper()
+        : "U";
+}
+
+<style>
+    .glass-effect {
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .form-control {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(6px);
+        border: 1px solid rgba(255, 0, 0, 0.4);
+        color: #fff !important;
+        border-radius: 8px;
+        transition: all 0.3s ease-in-out;
+    }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .form-control:focus {
+            background: rgba(255, 0, 0, 0.1);
+            border-color: #ff0000;
+            box-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
+            color: #fff;
+        }
+
+    input.input-validation-error,
+    textarea.input-validation-error {
+        border: 1px solid red !important;
+        background: rgba(255, 0, 0, 0.1) !important;
+        color: #fff;
+    }
+
+    input.valid,
+    textarea.valid {
+        border: 1px solid #28a745 !important;
+        background: rgba(0, 255, 0, 0.05) !important;
+        color: #fff;
+    }
+
+    .btn-danger {
+        background-color: #ff0000;
+        border: none;
+        font-weight: bold;
+        padding: 10px 20px;
+        border-radius: 8px;
+        transition: all 0.3s ease-in-out;
+    }
+
+        .btn-danger:hover {
+            background-color: transparent;
+            border: 1px solid #ff0000;
+            color: #ff0000;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
+        }
+
+    .btn-outline-light {
+        border-radius: 8px;
+        transition: all 0.3s ease-in-out;
+    }
+
+        .btn-outline-light:hover {
+            background-color: #fff;
+            color: #000;
+        }
+
+    .profile-circle {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: #dc3545;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-weight: bold;
+        font-size: 22px;
+    }
+
+    .edit-icon {
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+        .edit-icon:hover {
+            transform: scale(1.2);
+        }
+
+    .animate-card {
+        animation: fadeSlideIn 0.8s ease forwards;
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    @@keyframes fadeSlideIn {
+        to
+
+    {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    .animate-btn {
+        transition: all 0.3s;
+    }
+
+        .animate-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 5px 15px rgba(220,53,69,0.6);
+        }
+
+    .animate-alert {
+        animation: fadeIn 0.6s ease-in-out;
+    }
+
+    @@keyframes fadeIn {
+        from
+
+    {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    }
+
+    /* ===== Password Strength Bar ===== */
+    .progress {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+    }
+
+    .progress-bar {
+        transition: width 0.4s ease-in-out;
+    }
+
+</style>
+
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height:80vh;">
+    <div class="card shadow-lg rounded-4 p-4 glass-effect animate-card" style="max-width: 700px; width:100%; color:white;">
+
+        <!-- Profile header -->
+        <div class="d-flex align-items-center mb-4">
+            <div class="profile-circle me-3">
+                <span>@initials</span>
+            </div>
+            <h4 class="fw-bold mb-0">@Model.Name</h4>
+        </div>
+
+        <!-- Success/Error messages -->
+        @if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+        {
+            <div class="alert alert-success animate-alert">@ViewBag.SuccessMessage</div>
+        }
+        @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+        {
+            <div class="alert alert-danger animate-alert">@ViewBag.ErrorMessage</div>
+        }
+
+        <form asp-action="Profile" method="post">
+            <input type="hidden" asp-for="Id" />
+
+            <!-- Name -->
+            <div class="mb-3 position-relative">
+                <label class="form-label text-white">Full Name</label>
+                <div id="Name_display" class="editable-field">
+                    <span>@Model.Name</span>
+                    <i class="bi bi-pencil-square text-light ms-2 edit-icon" onclick="toggleField('Name')"></i>
+                </div>
+                <input asp-for="Name" id="Name_edit" class="form-control text-white bg-transparent border-white" style="display:none;" />
+            </div>
+
+            <!-- Phone Number -->
+            <div class="mb-3 position-relative">
+                <label class="form-label text-white">Phone Number</label>
+                <div id="PhoneNumber_display" class="editable-field">
+                    <span>@Model.PhoneNumber</span>
+                    <i class="bi bi-pencil-square text-light ms-2 edit-icon" onclick="toggleField('PhoneNumber')"></i>
+                </div>
+                <input asp-for="PhoneNumber" id="PhoneNumber_edit" class="form-control text-white bg-transparent border-white" style="display:none;" />
+            </div>
+
+            <!-- Address -->
+            <div class="mb-3 position-relative">
+                <label class="form-label text-white">Address</label>
+                <div id="Address_display" class="editable-field">
+                    <span>@Model.Address</span>
+                    <i class="bi bi-pencil-square text-light ms-2 edit-icon" onclick="toggleField('Address')"></i>
+                </div>
+                <input asp-for="Address" id="Address_edit" class="form-control text-white bg-transparent border-white" style="display:none;" />
+            </div>
+
+            <!-- Username -->
+            <div class="mb-3 position-relative">
+                <label class="form-label text-white">Username</label>
+                <div id="UserName_display" class="editable-field">
+                    <span>@Model.UserName</span>
+                    <i class="bi bi-pencil-square text-light ms-2 edit-icon" onclick="toggleField('UserName')"></i>
+                </div>
+                <input asp-for="UserName" id="UserName_edit" class="form-control text-white bg-transparent border-white" style="display:none;" />
+            </div>
+
+            <!-- Password -->
+            <div class="mb-3 position-relative">
+                <label class="form-label text-white">Password</label>
+                <div id="PasswordSection_display" class="editable-field">
+                    ********
+                    <i class="bi bi-pencil-square text-light ms-2 edit-icon" onclick="togglePassword()"></i>
+                </div>
+
+                <div id="PasswordSection_edit" style="display:none;">
+                    <div class="mb-2">
+                        <input asp-for="CurrentPassword" type="password" placeholder="Current Password" class="form-control text-white bg-transparent border-white" />
+                    </div>
+                    <div class="mb-2">
+                        <input asp-for="NewPassword" type="password" placeholder="New Password" class="form-control text-white bg-transparent border-white" onkeyup="checkStrength(this.value)" />
+                        <div class="progress mt-2" style="height: 8px;">
+                            <div id="strengthBar" class="progress-bar rounded-pill"></div>
+                        </div>
+                        <small id="strengthMsg" class="text-white"></small>
+                    </div>
+                    <div class="mb-2">
+                        <input asp-for="ConfirmPassword" type="password" placeholder="Confirm Password" class="form-control text-white bg-transparent border-white" />
+                    </div>
+                    <button type="button" class="btn btn-outline-light mt-2" onclick="cancelPassword()">Cancel</button>
+                </div>
+            </div>
+
+
+            <!-- Disclaimer for Email & Licence -->
+            <div class="alert alert-warning mt-4">
+                <i class="bi bi-exclamation-triangle me-2"></i>
+                <strong>Note:</strong> Your <b>Email</b> and <b>Licence Number</b> cannot be updated online.
+                If you need to change them, please visit our office directly.
+            </div>
+
+            <button type="submit" class="btn btn-danger w-100 fw-bold rounded-pill animate-btn">Save Changes</button>
+        </form>
+    </div>
+</div>
+
+
+<script>
+        // Toggle edit/display mode for normal fields
+        function toggleField(field) {
+            let display = document.getElementById(field + "_display");
+            let edit = document.getElementById(field + "_edit");
+
+            if (display && edit) {
+                display.style.display = "none";
+                edit.style.display = "block";
+
+                let input = edit.querySelector("input");
+                if (input) input.focus();
+            }
+        }
+
+            function togglePassword() {
+        let display = document.getElementById("PasswordSection_display");
+        let edit = document.getElementById("PasswordSection_edit");
+
+        if (display && edit) {
+            display.style.display = "none";
+            edit.style.display = "block";
+        }
+    }
+
+    function cancelPassword() {
+        let display = document.getElementById("PasswordSection_display");
+        let edit = document.getElementById("PasswordSection_edit");
+
+        if (display && edit) {
+            display.style.display = "block";
+            edit.style.display = "none";
+            document.getElementById("strengthBar").style.width = "0%";
+            document.getElementById("strengthMsg").innerText = "";
+        }
+    }
+
+        // Password strength checker
+        function checkStrength(password) {
+            let strengthBar = document.getElementById("strengthBar");
+            let strengthMsg = document.getElementById("strengthMsg");
+            let strength = 0;
+
+            if (password.match(/[a-z]+/)) strength++;
+            if (password.match(/[A-Z]+/)) strength++;
+            if (password.match(/[0-9]+/)) strength++;
+            if (password.match(/[$@@#&!%*?^]/)) strength++;
+            if (password.length >= 8) strength++;
+
+             switch (strength) {
+                case 0: strengthBar.style.width = "0%"; break;
+                case 1: strengthBar.style.width = "20%"; strengthBar.className="progress-bar bg-danger"; strengthMsg.innerText="Very Weak"; break;
+                case 2: strengthBar.style.width = "40%"; strengthBar.className="progress-bar bg-warning"; strengthMsg.innerText="Weak"; break;
+                case 3: strengthBar.style.width = "60%"; strengthBar.className="progress-bar bg-info"; strengthMsg.innerText="Medium"; break;
+                case 4: strengthBar.style.width = "80%"; strengthBar.className="progress-bar bg-primary"; strengthMsg.innerText="Strong"; break;
+                case 5: strengthBar.style.width = "100%"; strengthBar.className="progress-bar bg-success"; strengthMsg.innerText="Very Strong"; break;
+            }
+        }
+</script>

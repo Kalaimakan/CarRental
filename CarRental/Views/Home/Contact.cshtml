@@ -1,0 +1,125 @@
+﻿@model CarRental.ViewModels.ContactViewModel
+
+@{
+    ViewData["Title"] = "Contact Us";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+
+@if (!string.IsNullOrEmpty(Model.SuccessMessage))
+{
+    <div id="successAlert" class="alert alert-success">@Model.SuccessMessage</div>
+}
+
+<div class="container my-5">
+    <div class="card shadow-lg rounded-4 p-4" style="background-color: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border:1px solid rgba(255,0,0,0.4); box-shadow:0 0 10px rgba(255,0,0,0.3);">
+        <form asp-action="Contact" method="post">
+            <div class="mb-3">
+                <label class="form-label text-white">Name</label>
+                <input asp-for="Contact.Name" class="form-control" placeholder="Enter your name" />
+                <span asp-validation-for="Contact.Name" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label text-white">Email</label>
+                <input asp-for="Contact.Email" class="form-control" placeholder="Enter your email" />
+                <span asp-validation-for="Contact.Email" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label text-white">Subject</label>
+                <input asp-for="Contact.Subject" class="form-control" placeholder="Enter subject" />
+                <span asp-validation-for="Contact.Subject" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label text-white">Message</label>
+                <textarea asp-for="Contact.Message" class="form-control" rows="5" placeholder="Type your message..."></textarea>
+                <span asp-validation-for="Contact.Message" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 fw-bold">Send Message</button>
+        </form>
+    </div>
+</div>
+
+<partial name="_ValidationScriptsPartial" />
+
+<style>
+    /* Input & Textarea Glass Effect */
+    .form-control {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(6px);
+        border: 1px solid rgba(255, 0, 0, 0.4);
+        color: #fff;
+        border-radius: 8px;
+        transition: all 0.3s ease-in-out;
+    }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .form-control:focus {
+            background: rgba(255, 0, 0, 0.1);
+            border-color: #ff0000;
+            box-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
+            color: #fff;
+        }
+
+    /* Validation error */
+    input.input-validation-error,
+    textarea.input-validation-error {
+        border: 1px solid red !important;
+        background: rgba(255, 0, 0, 0.1) !important;
+        color: #fff;
+    }
+
+    /* Validation success */
+    input.valid,
+    textarea.valid {
+        border: 1px solid #28a745 !important;
+        background: rgba(0, 255, 0, 0.05) !important;
+        color: #fff;
+    }
+
+    /* Red Button Style */
+    .btn-primary {
+        background-color: #ff0000;
+        border: none;
+        font-weight: bold;
+        padding: 10px 20px;
+        border-radius: 8px;
+        transition: all 0.3s ease-in-out;
+    }
+
+        .btn-primary:hover {
+            background-color: transparent;
+            border: 1px solid #ff0000;
+            color: #ff0000;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
+        }
+
+    /* Smooth fade-out for success message */
+    #successAlert {
+        transition: opacity 0.5s ease;
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Reset form fields on page load
+        const form = document.querySelector("form");
+        if (form) {
+            form.reset();
+        }
+
+        // Auto-hide success message after 3 seconds
+        const alert = document.getElementById("successAlert");
+        if (alert) {
+            setTimeout(() => {
+                alert.style.opacity = "0";
+                setTimeout(() => alert.remove(), 500);
+            }, 3000);
+        }
+    });
+</script>

@@ -1,0 +1,182 @@
+﻿@model CarRental.ViewModels.OtpViewModel
+@{
+    ViewData["Title"] = "Verify OTP";
+}
+
+<style>
+    :root {
+        --primary-red: #ff0000;
+        --dark-start: #0a0a0a;
+        --dark-end: #1c1c1c;
+        --light-text: #f8f9fa;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        min-height: 100vh;
+        width: 100%;
+        font-family: "Segoe UI", sans-serif;
+        color: var(--light-text);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        position: relative;
+        background: var(--dark-start);
+    }
+
+    /* Background Video */
+    .bg-video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -2;
+    }
+
+    /* Dark overlay */
+    .bg-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(180deg, var(--dark-start) 0%, var(--dark-end) 100%);
+        opacity: 0.25;
+        z-index: -1;
+    }
+
+    .wrapper {
+        width: 100%;
+        max-width: 400px;
+        padding: 30px;
+        margin: 8% auto;
+        border-radius: 12px;
+        text-align: center;
+        border: 1px solid var(--primary-red);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(12px);
+        box-shadow: 0 0 15px 5px rgba(255, 0, 0, 0.5);
+        transition: all 0.3s ease;
+        background: rgba(255, 255, 255, 0.05);
+        position: relative;
+    }
+
+        .wrapper:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-red);
+            box-shadow: 0 0 20px 7px rgba(255, 0, 0, 0.9);
+        }
+
+    h2 {
+        font-size: 2rem;
+        margin-bottom: 15px;
+        font-weight: 700;
+        text-shadow: 0 0 12px rgba(255,0,0,0.6);
+        color: var(--light-text);
+    }
+
+    p {
+        margin-bottom: 25px;
+        font-size: 14px;
+        color: #ddd;
+    }
+
+    .input-field {
+        position: relative;
+        border-bottom: 2px solid var(--primary-red);
+        margin-bottom: 25px;
+        text-align: left;
+    }
+
+        .input-field label {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            color: #fff;
+            font-size: 16px;
+            pointer-events: none;
+            transition: 0.4s ease;
+        }
+
+        .input-field input {
+            width: 100%;
+            height: 40px;
+            background: transparent;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            color: var(--light-text);
+            text-align: center;
+            letter-spacing: 4px;
+        }
+
+            .input-field input:focus ~ label,
+            .input-field input:valid ~ label {
+                font-size: 0.8rem;
+                top: 10px;
+                transform: translateY(-120%);
+                color: var(--primary-red);
+            }
+
+    button {
+        background: var(--primary-red);
+        color: #fff;
+        font-weight: 600;
+        border: none;
+        padding: 12px 20px;
+        cursor: pointer;
+        border-radius: 6px;
+        font-size: 16px;
+        border: 2px solid transparent;
+        transition: 0.3s ease;
+        width: 100%;
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
+    }
+
+        button:hover {
+            background-color: transparent;
+            border-color: var(--primary-red);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px 7px rgba(255, 0, 0, 0.6);
+        }
+</style>
+
+<body>
+    <!-- Background Video -->
+    <video autoplay muted loop playsinline class="bg-video" id="bgVideo">
+        <source src="~/CarVideos/BMW M8.mp4" type="video/mp4">
+    </video>
+
+    <div class="bg-overlay"></div>
+
+    <div class="wrapper">
+        <form asp-action="VerifyOtpRegister" method="post">
+            <h2>🔒 Verify OTP</h2>
+            <p>Enter the 6-digit OTP sent to <strong>@Model.Email</strong></p>
+
+            <input type="hidden" asp-for="Email" />
+
+            <div class="input-field">
+                <input asp-for="Otp" required maxlength="6" />
+                <label asp-for="Otp">Enter OTP</label>
+            </div>
+
+            <button type="submit">Verify</button>
+        </form>
+    </div>
+</body>
+
+<script>
+    const video = document.getElementById('bgVideo');
+    video.playbackRate = 0.4;
+</script>

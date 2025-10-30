@@ -1,0 +1,314 @@
+﻿@{
+    ViewData["Title"] = "About Us";
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<body>
+    <!-- Company History Section -->
+    <section class="company-history-section position-relative text-white d-flex align-items-center justify-content-center" style="height: 80vh; overflow: hidden;">
+        <div class="history-slider">
+            <div class="slide active" style="background-image: url('@Url.Content("~/CarImg/AboutUs01.jpg")');"></div>
+            <div class="slide" style="background-image: url('@Url.Content("~/CarImg/AboutUs02.jpg")');"></div>
+            <div class="slide" style="background-image: url('@Url.Content("~/CarImg/AboutUs03.jpg")');"></div>
+            <div class="slide" style="background-image: url('@Url.Content("~/CarImg/AboutUs04.jpg")');"></div>
+        </div>
+        <div class="history-overlay text-center px-3">
+            <h1 class="display-4 animate__animated animate__fadeInDown">Our Journey</h1>
+            <p class="lead mt-3 animate__animated animate__fadeInUp animate__delay-1s">
+                Easy Ride Rentals started with a passion for delivering the best car rental experience.
+                Over the years, we have grown into a trusted name, serving countless happy customers.
+            </p>
+        </div>
+    </section>
+
+
+    <section class="about-us-section py-5 bg-dark text-white">
+        <div class="container text-center">
+            <h2 class="display-4 mt-5 mb-2 animate__animated animate__fadeInDown">Meet Our Team</h2>
+            <p class="lead mb-5 animate__animated animate__fadeInUp animate__delay-1s">
+                We are a passionate team dedicated to providing the best car rental experience.
+            </p>
+
+            <div class="row g-4 justify-content-center">
+                <!-- Member 1 -->
+                <div class="col-md-3 animate__animated animate__zoomIn animate__delay-1s">
+                    <div class="card bg-dark border-0 text-center team-card shadow-lg">
+                        <img src="~/CarImg/Ford Mustang Shelby GT500.jpg" class="card-img-top rounded-circle mx-auto mt-3" style="width:150px; height:150px; object-fit:cover;" alt="Member 1">
+                        <div class="card-body">
+                            <h5 class="card-title">KalaiMakan</h5>
+                            <p class="card-text">Founder & CEO</p>
+                            <div class="d-flex justify-content-center gap-2">
+                                <a href="https://www.facebook.com/" class="text-white"><i class="fab fa-facebook fa-lg"></i></a>
+                                <a href="https://www.facebook.com/" class="text-white"><i class="fab fa-instagram fa-lg"></i></a>
+                                <a href="https://www.linkedin.com/feed/" class="text-white"><i class="fab fa-linkedin fa-lg"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Member 2 -->
+                <div class="col-md-3 animate__animated animate__zoomIn animate__delay-2s">
+                    <div class="card bg-dark border-0 text-center team-card shadow-lg">
+                        <img src="~/CarImg/Audi R8.jpg" class="card-img-top rounded-circle mx-auto mt-3" style="width:150px; height:150px; object-fit:cover;" alt="Member 2">
+                        <div class="card-body">
+                            <h5 class="card-title">Fazal</h5>
+                            <p class="card-text">Operations Manager</p>
+                            <div class="d-flex justify-content-center gap-2">
+                                <a href="#" class="text-white"><i class="fab fa-facebook fa-lg"></i></a>
+                                <a href="#" class="text-white"><i class="fab fa-instagram fa-lg"></i></a>
+                                <a href="#" class="text-white"><i class="fab fa-linkedin fa-lg"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Member 3 -->
+                <div class="col-md-3 animate__animated animate__zoomIn animate__delay-3s">
+                    <div class="card bg-dark border-0 text-center team-card shadow-lg">
+                        <img src="~/CarImg/car1.jpg" class="card-img-top rounded-circle mx-auto mt-3" style="width:150px; height:150px; object-fit:cover;" alt="Member 3">
+                        <div class="card-body">
+                            <h5 class="card-title">Thinukshini</h5>
+                            <p class="card-text">Marketing Head</p>
+                            <div class="d-flex justify-content-center gap-2">
+                                <a href="#" class="text-white"><i class="fab fa-facebook fa-lg"></i></a>
+                                <a href="#" class="text-white"><i class="fab fa-instagram fa-lg"></i></a>
+                                <a href="#" class="text-white"><i class="fab fa-linkedin fa-lg"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Member 4 -->
+                <div class="col-md-3 animate__animated animate__zoomIn animate__delay-4s">
+                    <div class="card bg-dark border-0 text-center team-card shadow-lg">
+                        <img src="~/CarImg/Porsche 550 Spyder.png" class="card-img-top rounded-circle mx-auto mt-3" style="width:150px; height:150px; object-fit:cover;" alt="Member 4">
+                        <div class="card-body">
+                            <h5 class="card-title">Mishari</h5>
+                            <p class="card-text">Customer Experience</p>
+                            <div class="d-flex justify-content-center gap-2">
+                                <a href="#" class="text-white"><i class="fab fa-facebook fa-lg"></i></a>
+                                <a href="#" class="text-white"><i class="fab fa-instagram fa-lg"></i></a>
+                                <a href="#" class="text-white"><i class="fab fa-linkedin fa-lg"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Customer Feedback Section -->
+    <section class="customer-feedback-section py-5 bg-black text-white">
+        <div class="container text-center">
+            <h2 class="display-4 mb-4 animate__animated animate__fadeInDown">What Our Customers Say</h2>
+            <div class="row g-4 justify-content-center">
+
+                <!-- Feedback 1 -->
+                <div class="col-md-4">
+                    <div class="feedback-card position-relative p-4 rounded shadow-lg">
+                        <div class="feedback-overlay"></div>
+                        <div class="feedback-content position-relative">
+                            <h5 class="fw-bold">Love the Simplicity</h5>
+                            <p class="mb-3">They understood our needs and created a stunning car rental experience. Professional, responsive, and always on time!</p>
+                            <img src="~/CarImg/Customer01.jpg" class="rounded-circle mb-3" style="width:100px; height:100px; object-fit:cover;">
+                            <h6 class="text-danger">Allan Collins</h6>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feedback 2 -->
+                <div class="col-md-4">
+                    <div class="feedback-card position-relative p-4 rounded shadow-lg">
+                        <div class="feedback-overlay"></div>
+                        <div class="feedback-content position-relative">
+                            <h5 class="fw-bold">Excellent Cars</h5>
+                            <p class="mb-3">Booking was super easy, and the car options were amazing. Highly recommend Easy Ride Rentals!</p>
+                            <img src="~/CarImg/Customer03.jpg" class="rounded-circle mb-3" style="width:100px; height:100px; object-fit:cover;">
+                            <h6 class="text-danger">Tanya Grant</h6>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feedback 3 -->
+                <div class="col-md-4">
+                    <div class="feedback-card position-relative p-4 rounded shadow-lg">
+                        <div class="feedback-overlay"></div>
+                        <div class="feedback-content position-relative">
+                            <h5 class="fw-bold">Reliable & Smooth</h5>
+                            <p class="mb-3">Great experience! The team was helpful and the car was top-notch. Definitely coming back again.</p>
+                            <img src="~/CarImg/Customer02.jpg" class="rounded-circle mb-3" style="width:100px; height:100px; object-fit:cover;">
+                            <h6 class="text-danger">Clay Washington</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+<style>
+    /* Add this to your <style> section */
+    body {
+        background-color: #121212;
+        padding-top: 70px; /* adjust to your navbar height */
+    }
+
+    /* Optional: add slide-in effect for sections */
+    .about-us-section,
+    .company-history-section {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease-in-out;
+    }
+
+        .about-us-section.visible,
+        .company-history-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+    /* Company History Slider */
+    .company-history-section {
+        position: relative;
+        overflow: hidden;
+        color: white;
+    }
+
+    .history-slider {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+
+        .history-slider .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+            .history-slider .slide.active {
+                opacity: 1;
+            }
+
+    .history-overlay {
+        position: relative;
+        z-index: 2;
+        max-width: 800px;
+    }
+
+    /* Team card hover effect */
+    .team-card {
+        transition: transform 0.4s ease, background 0.4s ease;
+    }
+
+        .team-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            background: rgba(255, 0, 0, 0.1);
+        }
+
+    .team-card .card-body h5 {
+        font-weight: 600;
+        color: red;
+    }
+
+    .team-card .card-body p {
+        color: #ccc;
+        font-size: 0.95rem;
+    }
+
+    /* Social media icon hover effect */
+    .team-card .card-body a i {
+        transition: transform 0.5s ease, color 0.4s ease;
+        transform-style: preserve-3d;
+        color: white;
+    }
+
+    .team-card .card-body a:hover i {
+        color: red;
+        transform: scale(1.2);
+    }
+
+    /* Feedback Card */
+    .feedback-card {
+        background: #1a1a1a;
+        color: white;
+        overflow: hidden;
+        transition: transform 0.4s ease;
+        height: 100%;
+        position: relative;
+        border-radius: 10px;
+    }
+
+        .feedback-card:hover {
+            transform: translateY(-10px) scale(1.03);
+        }
+
+    /* Red overlay background */
+    .feedback-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 0;
+        background: #d32f2f; /* Red overlay */
+        transition: height 0.6s ease;
+        z-index: 0;
+        border-radius: 10px;
+    }
+
+    /* Expand red overlay on hover */
+    .feedback-card:hover .feedback-overlay {
+        height: 100%;
+    }
+
+    /* Keep content visible */
+    .feedback-content {
+        position: relative;
+        z-index: 1;
+        transition: color 0.6s ease;
+    }
+
+        /* Text styling */
+        .feedback-content h5,
+        .feedback-content p,
+        .feedback-content h6 {
+            transition: color 0.6s ease;
+        }
+
+    /* Change text color to white when red bg expands */
+    .feedback-card:hover .feedback-content h5,
+    .feedback-card:hover .feedback-content p,
+    .feedback-card:hover .feedback-content h6 {
+        color: #fff !important;
+    }
+
+    /* Customer name highlight */
+    .feedback-content h6 {
+        font-weight: 600;
+        color: #d32f2f; /* red by default */
+    }
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+<script>
+    const slides = document.querySelectorAll('.history-slider .slide');
+    let currentIndex = 0;
+
+    function showNextSlide() {
+        slides[currentIndex].classList.remove('active');
+        currentIndex = (currentIndex + 1) % slides.length;
+        slides[currentIndex].classList.add('active');
+    }
+
+    setInterval(showNextSlide, 5000);
+
+        // Animate sections on page load
+    window.addEventListener('DOMContentLoaded', () => {
+        document.querySelector('.company-history-section').classList.add('visible');
+        document.querySelector('.about-us-section').classList.add('visible');
+    });
+</script>

@@ -1,0 +1,74 @@
+﻿@model List<CarRental.DTOs.ContactDto>
+
+@{
+    ViewData["Title"] = "All Contacts";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container my-5">
+    <div class="card shadow-lg rounded-4 p-4"
+         style="background-color: rgba(10,25,47,0.95); backdrop-filter: blur(14px); color: #f1f5f9;">
+
+        <h3 class="text-center mb-4 fw-bold">All Contact Messages</h3>
+
+        @if (Model != null && Model.Any())
+        {
+            <div class="table-responsive">
+                <table class="table table-hover align-middle text-center text-white">
+                    <thead>
+                        <tr style="background-color: rgba(0,128,255,0.2);">
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Subject</th>
+                            <th>Message</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var contact in Model)
+                        {
+                            <tr style="background-color: rgba(255,255,255,0.05);">
+                                <td>@contact.Name</td>
+                                <td>@contact.Email</td>
+                                <td>@contact.Subject</td>
+                                <td>@contact.Message</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="text-center text-muted py-4">
+                No contact messages found.
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .table-hover tbody tr:hover {
+        background-color: rgba(0,128,255,0.15);
+        transform: scale(1.01);
+        transition: all 0.2s ease-in-out;
+    }
+
+    .table th, .table td {
+        padding: 0.75rem;
+        border: none;
+    }
+
+    .table-responsive::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .table-responsive::-webkit-scrollbar-thumb {
+        background: rgba(0,128,255,0.5);
+        border-radius: 10px;
+    }
+
+    .table-responsive::-webkit-scrollbar-track {
+        background: rgba(255,255,255,0.05);
+        border-radius: 10px;
+    }
+</style>

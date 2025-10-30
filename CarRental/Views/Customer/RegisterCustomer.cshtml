@@ -1,0 +1,313 @@
+﻿@model CarRental.ViewModels.CustomerViewModel
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<style>
+    :root {
+        --primary-red: #ff0000;
+        --dark-start: #0a0a0a;
+        --dark-end: #1c1c1c;
+        --light-text: #f8f9fa;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        min-height: 100vh;
+        width: 100%;
+        font-family: "Segoe UI", sans-serif;
+        color: var(--light-text);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        position: relative;
+        background: var(--dark-start);
+    }
+
+    /* Background Video */
+    .bg-video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -2;
+    }
+
+    /* Dark overlay */
+    .bg-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(180deg, var(--dark-start) 0%, var(--dark-end) 100%);
+        opacity: 0.2;
+        z-index: -1;
+    }
+
+    .wrapper {
+        width: 100%;
+        max-width: 800px;
+        padding: 30px;
+        margin: 8% auto;
+        border-radius: 12px;
+        text-align: center;
+        border: 1px solid var(--primary-red);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(12px);
+        box-shadow: 0 0 15px 5px rgba(255, 0, 0, 0.5);
+        transition: all 0.3s ease;
+        background: rgba(255, 255, 255, 0.05);
+        position: relative;
+    }
+
+        .wrapper:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-red);
+            box-shadow: 0 0 20px 7px rgba(255, 0, 0, 0.9);
+        }
+
+    h2 {
+        font-size: 2rem;
+        margin-bottom: 25px;
+        font-weight: 700;
+        text-shadow: 0 0 12px rgba(255,0,0,0.6);
+        color: var(--light-text);
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px 30px;
+        margin-bottom: 20px;
+    }
+
+    .input-field {
+        position: relative;
+        border-bottom: 2px solid var(--primary-red);
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding-bottom: 5px;
+    }
+
+        .input-field label {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            color: #fff;
+            font-size: 16px;
+            pointer-events: none;
+            transition: 0.4s ease;
+        }
+
+        .input-field input {
+            width: 100%;
+            height: 40px;
+            background: transparent;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            color: var(--light-text);
+        }
+
+            .input-field input:focus ~ label,
+            .input-field input:valid ~ label {
+                font-size: 0.8rem;
+                top: 10px;
+                transform: translateY(-120%);
+                color: var(--primary-red);
+            }
+
+    .text-danger {
+        font-size: 13px;
+        color: #ff4d4d !important;
+    }
+
+    button {
+        background: var(--primary-red);
+        color: #fff;
+        font-weight: 600;
+        border: none;
+        padding: 12px 20px;
+        cursor: pointer;
+        border-radius: 6px;
+        font-size: 16px;
+        border: 2px solid transparent;
+        transition: 0.3s ease;
+        width: 100%;
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
+    }
+
+        button:hover {
+            background-color: transparent;
+            border-color: var(--primary-red);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px 7px rgba(255, 0, 0, 0.6);
+        }
+
+    .register {
+        text-align: center;
+        margin-top: 30px;
+        color: #fff;
+    }
+
+        .register a {
+            color: #efefef;
+            text-decoration: none;
+            transition: 0.3s ease;
+        }
+
+            .register a:hover {
+                color: var(--primary-red);
+                text-shadow: 0 0 6px rgba(255,0,0,0.8);
+            }
+
+    .strength {
+        text-align: left;
+        font-size: 14px;
+        margin-top: -10px;
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
+
+        .strength.weak {
+            color: #ff4d4d;
+        }
+
+        .strength.medium {
+            color: #ffcc00;
+        }
+
+        .strength.strong {
+            color: #4dff88;
+        }
+
+</style>
+
+<body>
+    <!-- Background Video -->
+    <video autoplay muted loop playsinline class="bg-video" id="bgVideo">
+        <source src="~/CarVideos/BMW M8.mp4" type="video/mp4">
+    </video>
+    <!-- Overlay -->
+    <div class="bg-overlay"></div>
+
+    <div class="wrapper">
+        <form asp-action="RegisterCustomer" method="post" id="registerForm">
+            <h2>Register</h2>
+
+            <div class="form-grid">
+                <div class="input-field">
+                    <input asp-for="Name" type="text" required>
+                    <label asp-for="Name">Full Name</label>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="input-field">
+                    <input asp-for="Address" type="text" required>
+                    <label asp-for="Address">Address</label>
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+                <div class="input-field">
+                    <input asp-for="PhoneNumber" type="tel" pattern="[0-9]{10}" required>
+                    <label asp-for="PhoneNumber">Phone No</label>
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="input-field">
+                    <input asp-for="LicenceNumber" type="text" required>
+                    <label asp-for="LicenceNumber">Licence No</label>
+                    <span asp-validation-for="LicenceNumber" class="text-danger"></span>
+                </div>
+                <div class="input-field">
+                    <input asp-for="Email" type="email" required>
+                    <label asp-for="Email">Email</label>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="input-field">
+                    <input asp-for="Username" type="text" required>
+                    <label asp-for="Username">Username</label>
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+                <div class="input-field">
+                    <input asp-for="Password" type="password" id="password" required>
+                    <label asp-for="Password">Password</label>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="input-field">
+                    <input asp-for="ConfirmPassword" type="password" id="confirmPassword" required>
+                    <label asp-for="ConfirmPassword">Confirm Password</label>
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+            </div>
+
+            <p id="strengthMsg" class="strength"></p>
+            <p id="errorMsg" style="color: #ff8080; font-size: 14px; display: none; margin-bottom: 10px;"></p>
+
+            <button type="submit">Register</button>
+
+            <div class="register">
+                <p>Already have an account? <a asp-action="CustomerLogin" asp-controller="Account">Login</a></p>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById("registerForm");
+        const password = document.getElementById("password");
+        const confirmPassword = document.getElementById("confirmPassword");
+        const errorMsg = document.getElementById("errorMsg");
+        const strengthMsg = document.getElementById("strengthMsg");
+
+        password.addEventListener("input", () => {
+            const val = password.value;
+            let strength = "";
+            if (val.length < 6) strength = "weak";
+            else if (val.match(/[A-Za-z]/) && val.match(/[0-9]/) && val.length >= 6) strength = "medium";
+            if (val.match(/[A-Z]/) && val.match(/[0-9]/) && val.match(/[^A-Za-z0-9]/) && val.length >= 8) strength = "strong";
+
+            strengthMsg.textContent =
+                strength === "weak" ? "Weak Password" :
+                strength === "medium" ? "Medium Password" :
+                strength === "strong" ? "Strong Password" : "";
+
+            strengthMsg.className = "strength " + strength;
+        });
+
+        form.addEventListener("submit", (e) => {
+            if (password.value !== confirmPassword.value) {
+                e.preventDefault();
+                errorMsg.innerText = "Passwords do not match!";
+                errorMsg.style.display = "block";
+                return;
+            }
+
+            if (!/^[0-9]{10}$/.test(form.phone.value)) {
+                e.preventDefault();
+                errorMsg.innerText = "Phone number must be 10 digits.";
+                errorMsg.style.display = "block";
+                return;
+            }
+
+            errorMsg.style.display = "none";
+            alert("Registration Successful! 🎉");
+        });
+
+              const video = document.getElementById('bgVideo');
+        video.playbackRate = 0.4;
+    </script>
+</body>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

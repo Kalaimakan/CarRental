@@ -1,0 +1,226 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Overview";
+}
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="overview-container">
+    <!-- Top Heading -->
+    <div class="d-flex justify-content-between align-items-center mb-4 fade-in">
+        <h2 class="fw-bold text-white">Dashboard Overview</h2>
+        <span class="text-white">Last updated: @DateTime.Now.ToString("MMM dd, yyyy")</span>
+    </div>
+
+    <!-- Cards Row -->
+    <div class="row g-4">
+        <div class="col-md-3">
+            <div class="overview-card customers-card fade-in">
+                <i class="bi bi-people-fill icon"></i>
+                <h4>Customers</h4>
+                <p>1,250</p>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="overview-card cars-card fade-in">
+                <i class="bi bi-car-front-fill icon"></i>
+                <h4>Cars</h4>
+                <p>430</p>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="overview-card bookings-card fade-in">
+                <i class="bi bi-journal-bookmark-fill icon"></i>
+                <h4>Bookings</h4>
+                <p>980</p>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="overview-card revenue-card fade-in">
+                <i class="bi bi-credit-card-fill icon"></i>
+                <h4>Revenue</h4>
+                <p>$25,600</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reports Section -->
+    <div class="row mt-5">
+        <div class="col-lg-6">
+            <div class="overview-card h-100 fade-in">
+                <h5 class="fw-bold mb-3">Recent Bookings</h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">#B001 - John Doe - Toyota Corolla</li>
+                    <li class="list-group-item">#B002 - Sarah Lee - Honda Civic</li>
+                    <li class="list-group-item">#B003 - Mark Smith - BMW X5</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="overview-card h-100 fade-in">
+                <h5 class="fw-bold mb-3">Revenue Overview</h5>
+                <canvas id="revenueChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #121212;
+        color: #e0e0e0;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .overview-container {
+        padding: 30px;
+    }
+
+    .overview-card {
+        border-radius: 15px;
+        padding: 25px;
+        text-align: center;
+        transition: all 0.3s ease;
+        box-shadow: 0 6px 15px rgba(0,0,0,0.6);
+        color: #fff;
+    }
+
+        .overview-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.8);
+        }
+
+        .overview-card .icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .overview-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .overview-card p {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+    .customers-card {
+        background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+    }
+
+    .cars-card {
+        background: linear-gradient(135deg, #065f46, #10b981);
+    }
+
+    .bookings-card {
+        background: linear-gradient(135deg, #92400e, #f59e0b);
+    }
+
+    .revenue-card {
+        background: linear-gradient(135deg, #6d28d9, #a855f7);
+    }
+
+    .list-group-item {
+        background-color: #1e1e2f;
+        color: #e0e0e0;
+        border: 1px solid #2a2a40;
+    }
+
+        .list-group-item:hover {
+            background-color: #2a2a40;
+        }
+
+    /* Fade-in animation */
+    .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Fade-in staggered animation
+    document.addEventListener("DOMContentLoaded", () => {
+        const fadeEls = document.querySelectorAll('.fade-in');
+        fadeEls.forEach((el, index) => {
+            setTimeout(() => el.classList.add('visible'), 100 * index);
+        });
+    });
+
+    // Revenue Chart
+    const ctx = document.getElementById('revenueChart').getContext('2d');
+    const gradientBlue = ctx.createLinearGradient(0, 0, 0, 400);
+    gradientBlue.addColorStop(0, 'rgba(59,130,246,0.6)');
+    gradientBlue.addColorStop(1, 'rgba(59,130,246,0.05)');
+
+    const gradientGreen = ctx.createLinearGradient(0, 0, 0, 400);
+    gradientGreen.addColorStop(0, 'rgba(16,185,129,0.6)');
+    gradientGreen.addColorStop(1, 'rgba(16,185,129,0.05)');
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+            datasets: [
+                {
+                    label: 'Revenue',
+                    data: [3200, 4500, 3900, 6000, 7200, 8500],
+                    borderWidth: 2,
+                    borderColor: '#3b82f6',
+                    backgroundColor: gradientBlue,
+                    fill: true,
+                    tension: 0.4
+                },
+                {
+                    label: 'Expenses',
+                    data: [2200, 3100, 2800, 3500, 4200, 5000],
+                    borderWidth: 2,
+                    borderColor: '#10b981',
+                    backgroundColor: gradientGreen,
+                    fill: true,
+                    tension: 0.4
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: { legend: { labels: { color: '#e0e0e0' } } },
+            scales: {
+                x: { ticks: { color: '#e0e0e0' }, grid: { color: '#333' } },
+                y: { ticks: { color: '#e0e0e0' }, grid: { color: '#333' } }
+            },
+            animation: { duration: 1500, easing: 'easeOutQuart' }
+        }
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const successAlert = document.querySelector('.alert-success');
+        if(successAlert){
+            setTimeout(() => {
+                // fade out smoothly
+                successAlert.style.transition = "opacity 0.5s ease";
+                successAlert.style.opacity = '0';
+                setTimeout(() => successAlert.remove(), 500); // remove from DOM
+            }, 5000); // 5000ms = 5 seconds
+        }
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

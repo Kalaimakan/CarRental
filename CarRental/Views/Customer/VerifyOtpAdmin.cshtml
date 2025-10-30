@@ -1,0 +1,188 @@
+﻿@* @{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@model CarRental.ViewModels.OtpViewModel
+
+<div class="content-container d-flex justify-content-center align-items-center vh-100 bg-dark">
+    <div class="otp-card text-white p-5 rounded shadow-lg">
+        <h2 class="text-center mb-3">🔒 Admin OTP Verification</h2>
+        <p class="text-center mb-4">Enter the 6-digit OTP sent to <strong>@Model.Email</strong></p>
+
+        <form asp-action="VerifyOtpAdmin" method="post" class="text-center">
+            <input type="hidden" asp-for="Email" />
+            <div class="mb-3">
+                <label for="otp" class="form-label">OTP</label>
+                <input asp-for="Otp" class="form-control otp-input mx-auto" style="max-width: 200px;" />
+            </div>
+            <button type="submit" class="btn btn-danger btn-verify mt-3">Verify</button>
+        </form>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #111; /* Dark background */
+    }
+
+    .otp-card {
+        background: linear-gradient(135deg, #1a1a1a, #2c2c2c);
+        border: 2px solid #ff0000;
+        box-shadow: 0 8px 20px rgba(255, 0, 0, 0.6);
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+        .otp-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(255, 0, 0, 0.8);
+        }
+
+    .otp-input {
+        background-color: #111;
+        border: 1px solid #ff0000;
+        color: #fff;
+        text-align: center;
+    }
+
+        .otp-input:focus {
+            border-color: #ff4444;
+            box-shadow: 0 0 10px #ff0000;
+            outline: none;
+        }
+
+    .btn-verify {
+        background-color: #ff0000;
+        border: none;
+        padding: 10px 30px;
+        font-weight: bold;
+        transition: all 0.3s;
+    }
+
+        .btn-verify:hover {
+            background-color: #cc0000;
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(255, 0, 0, 0.6);
+        }
+</style> *@
+
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@model CarRental.ViewModels.OtpViewModel
+
+<div class="content-container d-flex justify-content-center align-items-center vh-100">
+    <div class="otp-card text-white p-5 rounded shadow-lg">
+        <h2 class="text-center mb-3">🔒 Admin OTP Verification</h2>
+        <p class="text-center mb-4">Enter the 6-digit OTP sent to <strong>@Model.Email</strong></p>
+
+        <form asp-action="VerifyOtpAdmin" method="post">
+            <input type="hidden" asp-for="Email" />
+
+            <!-- Floating Input Field -->
+            <div class="input-field">
+                <input asp-for="Otp" required maxlength="6" />
+                <label asp-for="Otp">Enter OTP</label>
+            </div>
+
+            <button type="submit" class="btn-verify mt-3">Verify</button>
+        </form>
+    </div>
+</div>
+
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        background: linear-gradient(135deg, #071028 0%, #071226 100%);
+        font-family: "Segoe UI", sans-serif;
+    }
+
+    .otp-card {
+        max-width: 420px;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.05);
+        border: 2px solid #0dcaf0;
+        box-shadow: 0 8px 20px rgba(13, 202, 240, 0.6);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        transition: transform 0.3s, box-shadow 0.3s;
+        border-radius: 20px;
+    }
+
+        .otp-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(13, 202, 240, 0.8);
+        }
+
+    h2 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        text-shadow: 0 0 10px rgba(13, 202, 240, 0.7);
+    }
+
+    p {
+        color: #bbb;
+    }
+
+    /* Floating input field */
+    .input-field {
+        position: relative;
+        border-bottom: 2px solid #0dcaf0;
+        margin-bottom: 25px;
+        text-align: left;
+    }
+
+        .input-field label {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            color: #aaa;
+            font-size: 16px;
+            pointer-events: none;
+            transition: 0.4s ease;
+        }
+
+        .input-field input {
+            width: 100%;
+            height: 40px;
+            background: transparent;
+            border: none;
+            outline: none;
+            font-size: 18px;
+            color: #fff;
+            text-align: center;
+            letter-spacing: 4px;
+        }
+
+            .input-field input:focus ~ label,
+            .input-field input:valid ~ label {
+                font-size: 0.8rem;
+                top: 10px;
+                transform: translateY(-120%);
+                color: #0dcaf0;
+            }
+
+    /* Button */
+    .btn-verify {
+        background-color: #0dcaf0;
+        border: none;
+        padding: 12px 30px;
+        font-weight: bold;
+        color: #fff;
+        border-radius: 6px;
+        transition: all 0.3s;
+        width: 100%;
+        box-shadow: 0 0 15px rgba(13, 202, 240, 0.6);
+    }
+
+        .btn-verify:hover {
+            background-color: transparent;
+            border: 2px solid #0dcaf0;
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(13, 202, 240, 0.9);
+        }
+</style>

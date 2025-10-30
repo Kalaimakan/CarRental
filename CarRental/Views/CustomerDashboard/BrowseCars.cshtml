@@ -1,0 +1,34 @@
+﻿@{
+    ViewData["Title"] = "Browse Cars";
+    Layout = "_Layout";
+}
+
+<h1>Browse Available Cars</h1>
+
+<div class="row">
+    @* Loop through cars and display them *@
+    @if (Model != null && Model.Any())
+    {
+        @foreach (var car in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm">
+                    @* Assuming you have an image for the car *@
+                    <img src="~/images/@car.ImageUrl" class="card-img-top" alt="@car.Make @car.Model">
+                    <div class="card-body">
+                        <h5 class="card-title">@car.Make @car.Model</h5>
+                        <p class="card-text">
+                            <strong>Type:</strong> @car.CarType <br />
+                            <strong>Price:</strong> $@car.RentalPricePerDay / Day
+                        </p>
+                        <a href="#" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p>No cars available at the moment. Please check back later!</p>
+    }
+</div>
